@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل التجويد — بصوت الشيخ أيمن سويد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold2:#E8C76A;--dark:#1A1208;--parchment:#FDF6E3;
+  --green:#2D5A27;--green2:#3D7A35;--red:#8B1A1A;--blue:#1A3A6B;
+  --teal:#1A5A5A;--purple:#4A1A6B;--border:#D4B483;
+  --card:#FFFEF7;--shadow:rgba(26,18,8,0.15);--orange:#8B4513;
+}
+body{font-family:'Tajawal',sans-serif;background:var(--parchment);color:var(--dark);direction:rtl;min-height:100vh;}
+.wrap{max-width:920px;margin:0 auto;padding:1.5rem 1rem 4rem;}
+
+/* HEADER */
+.hdr{text-align:center;padding:2rem 1rem 1.5rem;border-bottom:2px solid var(--gold);margin-bottom:2rem;}
+.hdr::before{content:'﷽';font-family:'Amiri Quran';font-size:2.2rem;color:var(--gold);display:block;margin-bottom:.5rem;}
+.hdr h1{font-family:'Amiri';font-size:2.2rem;font-weight:700;color:var(--dark);}
+.hdr .sub{font-size:.92rem;color:#5a4a2a;margin-top:.35rem;}
+.sheikh-badge{display:inline-flex;align-items:center;gap:.5rem;background:#f5efe0;border:1.5px solid var(--gold);border-radius:20px;padding:.35rem 1rem;margin-top:.7rem;font-size:.85rem;font-weight:600;color:#5a3a10;}
+
+/* NAV */
+.nav{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.8rem;justify-content:center;}
+.nb{font-family:'Tajawal';font-size:.8rem;padding:.38rem .85rem;border:1.5px solid var(--border);background:var(--card);color:var(--dark);border-radius:20px;cursor:pointer;transition:all .2s;font-weight:500;}
+.nb:hover,.nb.on{background:var(--gold);border-color:var(--gold);color:#fff;}
+
+/* SECTIONS */
+.sec{display:none;animation:fi .3s ease}
+.sec.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.stitle{font-family:'Amiri';font-size:1.55rem;font-weight:700;color:var(--dark);border-right:4px solid var(--gold);padding-right:.75rem;margin-bottom:1.2rem;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.3rem;margin-bottom:1rem;box-shadow:0 2px 8px var(--shadow);}
+.ctitle{font-family:'Amiri';font-size:1.1rem;font-weight:700;margin-bottom:.5rem;}
+.cbody{font-size:.89rem;line-height:1.95;color:#3a2e1a;}
+
+/* ===== VIDEO CARDS ===== */
+.vid-box{background:linear-gradient(135deg,#1e1408 0%,#2d1e08 100%);border-radius:14px;padding:1.1rem;margin-bottom:1.2rem;border:2px solid var(--gold);}
+.vid-box-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem;}
+.vid-mic{font-size:1.3rem;}
+.vid-box-title{color:#f5e8c0;font-family:'Amiri';font-size:1rem;font-weight:700;line-height:1.4;}
+.vid-box-sub{color:#c9a84c;font-size:.73rem;margin-top:.15rem;}
+.vid-list{display:flex;flex-direction:column;gap:.6rem;}
+.vid-item{display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.25);border-radius:10px;padding:.6rem .8rem;text-decoration:none;transition:all .22s;cursor:pointer;}
+.vid-item:hover{background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.6);transform:translateX(-2px);}
+.vid-thumb{position:relative;flex-shrink:0;width:90px;height:52px;border-radius:7px;overflow:hidden;background:#111;}
+.vid-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.vid-thumb-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);}
+.play-btn{width:26px;height:26px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.play-btn::after{content:'';border-style:solid;border-width:5px 0 5px 10px;border-color:transparent transparent transparent #fff;margin-right:-2px;}
+.vid-info{flex:1;min-width:0;}
+.vid-ep{font-size:.7rem;color:#c9a84c;margin-bottom:.15rem;}
+.vid-name{color:#f0e0b0;font-size:.84rem;font-weight:500;line-height:1.4;}
+.vid-dur{font-size:.68rem;color:rgba(240,224,176,0.5);margin-top:.15rem;}
+.vid-arrow{color:#c9a84c;font-size:1rem;flex-shrink:0;}
+
+/* RULE GRID */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.75rem;margin-bottom:1.2rem;}
+.rc{background:var(--card);border-radius:12px;border:1.5px solid var(--border);padding:1rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.rc::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;}
+.rc.cg::before{background:var(--green)}.rc.cr::before{background:var(--red)}.rc.cb::before{background:var(--blue)}
+.rc.ct::before{background:var(--teal)}.rc.cp::before{background:var(--purple)}.rc.co::before{background:var(--gold)}
+.rc:hover{transform:translateY(-2px);box-shadow:0 5px 16px var(--shadow);}
+.rc .ra{font-family:'Amiri';font-size:1.4rem;color:var(--gold);margin-bottom:.25rem;}
+.rc .rn{font-weight:700;font-size:.9rem;margin-bottom:.15rem;}
+.rc .re{font-size:.75rem;color:#6a5a3a;}
+
+/* DETAIL PANELS */
+.dp{background:#FFFEF7;border:2px solid var(--gold);border-radius:14px;padding:1.3rem;margin-top:.8rem;display:none;}
+.dp.on{display:block;animation:fi .3s ease}
+.dp .dph{font-family:'Amiri';font-size:1.2rem;font-weight:700;margin-bottom:.65rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.badge{font-family:'Tajawal';font-size:.72rem;padding:.18rem .55rem;border-radius:20px;font-weight:500;}
+.dpb{font-size:.87rem;line-height:2;color:#3a2e1a;}
+.ex{background:#f5efe0;border-radius:8px;padding:.68rem .95rem;margin-top:.68rem;border-right:3px solid var(--gold);}
+.exl{font-size:.72rem;color:#7a6a4a;margin-bottom:.25rem;}
+.exa{font-family:'Amiri Quran';font-size:1.72rem;line-height:2.4;direction:rtl;}
+.cbtn{float:left;background:none;border:none;font-size:1.1rem;cursor:pointer;color:#9a8a6a;padding:.1rem .4rem;}
+.cbtn:hover{color:var(--red)}
+
+/* TABLES */
+.tbl{width:100%;border-collapse:collapse;font-size:.83rem;margin-top:.65rem;}
+.tbl th{background:#f0e8cc;padding:.56rem .72rem;font-weight:700;border:1px solid var(--border);text-align:right;}
+.tbl td{padding:.5rem .72rem;border:1px solid var(--border);text-align:right;line-height:1.75;}
+.tbl tr:nth-child(even){background:#faf5e8;}
+.tbl .ar{font-family:'Amiri Quran';font-size:1.25rem;}
+
+/* HIGHLIGHTS */
+.hg{color:#9b2335;font-weight:700}.hm{color:#1a3a6b;font-weight:700;text-decoration:underline;text-decoration-color:#1a3a6b}
+.hq{color:#2D5A27;font-weight:700}.hi{color:#4A1A6B;font-weight:700}.hk{color:#1A5A5A;font-weight:700}.hb{color:#8B4513;font-weight:700}
+.tip{background:#FFF8E1;border:1px solid #f0d080;border-radius:8px;padding:.65rem .92rem;font-size:.83rem;margin-top:.68rem;color:#5a4a1a;}
+.tip::before{content:'💡 '}
+
+/* SIFAT */
+.sif-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1rem;}
+.sif-card{background:var(--card);border:1.5px solid var(--border);border-radius:11px;padding:.9rem 1rem;}
+.sif-card .sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.4rem;}
+.sif-card .sc-name{font-family:'Amiri';font-size:1.04rem;font-weight:700;}
+.sif-card .sc-opp{font-size:.7rem;color:#9a8a6a;border:1px solid var(--border);border-radius:10px;padding:.1rem .4rem;}
+.sif-card .sc-ar{font-family:'Amiri Quran';font-size:1.2rem;color:var(--gold);margin-bottom:.28rem;direction:rtl;}
+.sif-card .sc-body{font-size:.78rem;color:#5a4a2a;line-height:1.72;}
+.sif-card .sc-letters{font-family:'Amiri Quran';font-size:.98rem;margin-top:.28rem;direction:rtl;}
+
+/* MAKHAARIJ */
+.mk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.65rem;}
+.mk-c{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.82rem;text-align:center;}
+.mk-ic{font-size:1.8rem;margin-bottom:.3rem;}
+.mk-t{font-family:'Amiri';font-size:.94rem;font-weight:700;margin-bottom:.2rem;}
+.mk-l{font-family:'Amiri Quran';font-size:1.3rem;color:var(--gold);line-height:1.8;direction:rtl;}
+.mk-s{font-size:.72rem;color:#6a5a3a;margin-top:.15rem;}
+
+/* LEGEND */
+.lpill{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;margin:.12rem;}
+.ldot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+
+/* EXERCISE */
+.ex-tabs{display:flex;gap:.38rem;margin-bottom:.9rem;flex-wrap:wrap;}
+.xtab{font-family:'Tajawal';font-size:.8rem;padding:.35rem .78rem;border:1.5px solid var(--border);background:var(--card);border-radius:8px;cursor:pointer;font-weight:500;transition:all .2s;}
+.xtab.on{background:var(--green);border-color:var(--green);color:#fff;}
+.xsec{display:none}.xsec.on{display:block;animation:fi .3s ease}
+.qbox{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:.88rem;}
+.qnum{font-size:.73rem;color:#9a8a6a;margin-bottom:.38rem;}
+.qtext{font-family:'Amiri';font-size:1rem;line-height:1.85;margin-bottom:.78rem;}
+.opts{display:flex;flex-direction:column;gap:.4rem;}
+.opt{background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:.6rem .92rem;cursor:pointer;font-size:.87rem;text-align:right;transition:all .2s;font-family:'Tajawal';}
+.opt:hover:not(.locked){border-color:var(--gold);background:#fdf3d8;}
+.opt.ok{background:#e8f5e9;border-color:var(--green);color:var(--green);}
+.opt.no{background:#fce8e8;border-color:var(--red);color:var(--red);}
+.locked{pointer-events:none;}
+.fb{font-size:.82rem;padding:.46rem .72rem;border-radius:6px;margin-top:.48rem;display:none;}
+.fb.on{display:block}.fb.ok{background:#e8f5e9;color:var(--green)}.fb.no{background:#fce8e8;color:var(--red)}
+.score-row{display:flex;align-items:center;gap:.72rem;margin-bottom:.9rem;}
+.score-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.38rem .78rem;font-size:.83rem;font-weight:600;white-space:nowrap;}
+.prog-bar{flex:1;background:#e8e0cc;border-radius:20px;height:7px;overflow:hidden;}
+.prog-fill{background:linear-gradient(90deg,var(--green),var(--gold));height:100%;border-radius:20px;transition:width .4s;}
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+.match-col{display:flex;flex-direction:column;gap:.4rem;}
+.match-col h4{font-size:.82rem;color:#7a6a4a;margin-bottom:.18rem;font-weight:600;}
+.mitem{padding:.54rem .85rem;border-radius:8px;border:1.5px solid var(--border);font-size:.87rem;cursor:pointer;transition:all .2s;background:var(--card);text-align:center;font-family:'Tajawal';}
+.mitem:hover:not(.matched){border-color:var(--gold);}
+.mitem.sel{border-color:var(--blue);background:#e8f0fc;color:var(--blue);}
+.mitem.matched{border-color:var(--green);background:#e8f5e9;color:var(--green);cursor:default;}
+.mitem.wf{border-color:var(--red);background:#fce8e8;animation:shake .4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.btn{font-family:'Tajawal';padding:.45rem 1.3rem;border-radius:8px;border:none;cursor:pointer;font-size:.87rem;font-weight:600;transition:all .2s;}
+.btn-o{background:transparent;border:1.5px solid var(--gold);color:var(--dark);}.btn-o:hover{background:#fdf3d8;}
+
+@media(max-width:600px){
+  .hdr h1{font-size:1.65rem;}
+  .match-wrap{grid-template-columns:1fr;}
+  .vid-thumb{width:70px;height:42px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <h1>دليل التجويد التفاعلي الشامل</h1>
+  <div class="sub">تعلّم أحكام تجويد القرآن الكريم — النسخة الموسَّعة</div>
+  <div class="sheikh-badge">🎙️ بشرح فضيلة الدكتور أيمن رشدي سويد — حفظه الله</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nb on"  onclick="show('s0',this)">نظرة عامة</button>
+  <button class="nb" onclick="show('s1',this)">النون والتنوين</button>
+  <button class="nb" onclick="show('s2',this)">الميم الساكنة</button>
+  <button class="nb" onclick="show('s3',this)">أحكام المد</button>
+  <button class="nb" onclick="show('s4',this)">القلقلة</button>
+  <button class="nb" onclick="show('s5',this)">التفخيم والترقيق</button>
+  <button class="nb" onclick="show('s6',this)">صفات الحروف</button>
+  <button class="nb" onclick="show('s7',this)">مخارج الحروف</button>
+  <button class="nb" onclick="show('s8',this)">الوقف والابتداء</button>
+  <button class="nb" onclick="show('s9',this)">اللام والراء</button>
+  <button class="nb" onclick="show('s10',this)">الهمز والتسهيل</button>
+  <button class="nb" onclick="show('sex',this)">📝 تمارين</button>
+</nav>
+
+<!-- ============================== S0: OVERVIEW ============================== -->
+<div id="s0" class="sec on">
+  <div class="stitle">ما هو علم التجويد؟</div>
+  <div class="card">
+    <div class="ctitle">التعريف والحكم والفضل</div>
+    <div class="cbody">
+      <strong>لغةً:</strong> التحسين والإتقان.<br>
+      <strong>اصطلاحاً:</strong> إعطاء كل حرف حقَّه ومستحقَّه من الصفات والمخارج.<br><br>
+      <strong>حكم تعلّمه:</strong> فرض عين على كل مسلم ومسلمة فيما يقرأه من القرآن الكريم.<br>
+      <strong>فضله:</strong> قال ﷺ: "الذي يقرأ القرآن وهو ماهر به مع السَّفَرة الكرام البررة" (متفق عليه).
+    </div>
+  </div>
+
+  <div class="vid-box">
+    <div class="vid-box-header"><span class="vid-mic">🎙️</span>
+      <div><div class="vid-box-title">مقدمة في علم التجويد</div><div class="vid-box-sub">د. أيمن رشدي سويد — اضغط لفتح الدرس في يوتيوب</div></div>
+    </div>
+    <div class="vid-list">
+      <a class="vid-item" href="https://www.youtube.com/watch?v=H6WTnSZ6G-0" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/H6WTnSZ6G-0/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 1</div><div class="vid-name">مقدمة في علم التجويد — شرح التجويد المصور</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+      <a class="vid-item" href="https://www.youtube.com/watch?v=dYGT1Rg7DKo" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/dYGT1Rg7DKo/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">نصائح</div><div class="vid-name">ملاحظات مهمة لكل من أراد تعلم التجويد</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="rgrid">
+    <div class="rc cr" onclick="show('s1',null)"><div class="ra">نْ / تنوين</div><div class="rn">أحكام النون والتنوين</div><div class="re">4 أحكام</div></div>
+    <div class="rc cb" onclick="show('s2',null)"><div class="ra">مْ</div><div class="rn">أحكام الميم الساكنة</div><div class="re">3 أحكام</div></div>
+    <div class="rc ct" onclick="show('s3',null)"><div class="ra">مـَدّ</div><div class="rn">أحكام المد</div><div class="re">10 أنواع</div></div>
+    <div class="rc cg" onclick="show('s4',null)"><div class="ra">قَلْقَ</div><div class="rn">القلقلة</div><div class="re">3 درجات</div></div>
+    <div class="rc cr" onclick="show('s5',null)"><div class="ra">تفخيم</div><div class="rn">التفخيم والترقيق</div><div class="re">الراء واللام</div></div>
+    <div class="rc cp" onclick="show('s6',null)"><div class="ra">صفات</div><div class="rn">صفات الحروف</div><div class="re">17 صفة</div></div>
+    <div class="rc co" onclick="show('s7',null)"><div class="ra">مخارج</div><div class="rn">مخارج الحروف</div><div class="re">17 مخرجاً</div></div>
+    <div class="rc cg" onclick="show('s8',null)"><div class="ra">وقف</div><div class="rn">الوقف والابتداء</div><div class="re">4 أنواع</div></div>
+    <div class="rc cb" onclick="show('s9',null)"><div class="ra">ر / ل</div><div class="rn">اللام والراء</div><div class="re">أحكام مفصلة</div></div>
+    <div class="rc ct" onclick="show('s10',null)"><div class="ra">ء</div><div class="rn">الهمز والتسهيل</div><div class="re">أنواع الهمز</div></div>
+  </div>
+  <div class="card">
+    <div class="ctitle">دليل الألوان</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.1rem;margin-top:.4rem;">
+      <span class="lpill"><span class="ldot" style="background:#9b2335;"></span>غنة</span>
+      <span class="lpill"><span class="ldot" style="background:#1a3a6b;"></span>مد</span>
+      <span class="lpill"><span class="ldot" style="background:#2D5A27;"></span>قلقلة</span>
+      <span class="lpill"><span class="ldot" style="background:#4A1A6B;"></span>إدغام</span>
+      <span class="lpill"><span class="ldot" style="background:#1A5A5A;"></span>إخفاء</span>
+      <span class="lpill"><span class="ldot" style="background:#8B4513;"></span>إقلاب</span>
+      <span class="lpill"><span class="ldot" style="background:#8B1A1A;"></span>إظهار</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== S1: NOON ============================== -->
+<div id="s1" class="sec">
+  <div class="stitle">أحكام النون الساكنة والتنوين</div>
+  <div class="vid-box">
+    <div class="vid-box-header"><span class="vid-mic">🎙️</span>
+      <div><div class="vid-box-title">أحكام النون الساكنة والتنوين</div><div class="vid-box-sub">د. أيمن سويد — شرح التجويد المصور</div></div>
+    </div>
+    <div class="vid-list">
+      <a class="vid-item" href="https://www.youtube.com/watch?v=LYOO-6f3s0U" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/LYOO-6f3s0U/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 25</div><div class="vid-name">أحكام النون الساكنة والتنوين — الأربعة كاملة</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+      <a class="vid-item" href="https://www.youtube.com/watch?v=cYzPZmhHAf0" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/cYzPZmhHAf0/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 26</div><div class="vid-name">الإدغام والإظهار — شرح منظومة المفيد</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+      <a class="vid-item" href="https://www.youtube.com/watch?v=W11lw7AQ-vw" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/W11lw7AQ-vw/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">درس مركّز</div><div class="vid-name">الإظهار الحلقي — أهم دروس التجويد</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="rgrid">
+    <div class="rc cr" onclick="td('d1a')"><div class="ra">إظـهار</div><div class="rn">الإظهار الحلقي</div><div class="re">6 حروف حلقية</div></div>
+    <div class="rc cp" onclick="td('d1b')"><div class="ra">إدغـام</div><div class="rn">الإدغام</div><div class="re">يرملون — 6 حروف</div></div>
+    <div class="rc co" onclick="td('d1c')"><div class="ra">إقـلاب</div><div class="rn">الإقلاب</div><div class="re">حرف واحد: ب</div></div>
+    <div class="rc cb" onclick="td('d1d')"><div class="ra">إخـفاء</div><div class="rn">الإخفاء الحقيقي</div><div class="re">15 حرفاً</div></div>
+  </div>
+  <div id="d1a" class="dp">
+    <button class="cbtn" onclick="cd('d1a')">✕</button>
+    <div class="dph">الإظهار الحلقي <span class="badge" style="background:#fce8e8;color:#8B1A1A;">6 حروف</span></div>
+    <div class="dpb"><strong>التعريف:</strong> إخراج النون الساكنة أو التنوين واضحاً بلا غنة ولا إدغام عند الحروف الحلقية.<br>
+    <strong>الحروف:</strong> <span style="font-family:'Amiri Quran';font-size:1.5rem;color:#8B1A1A;">ء هـ ع ح غ خ</span></div>
+    <table class="tbl">
+      <tr><th>الحرف</th><th>مع نون ساكنة</th><th>مع تنوين</th></tr>
+      <tr><td class="ar">ء</td><td class="ar">مِ<span class="hg">نْ</span> آمَنَ</td><td class="ar">سَميعٌ أَليم</td></tr>
+      <tr><td class="ar">هـ</td><td class="ar">مِ<span class="hg">نْ</span> هَادٍ</td><td class="ar">نَعيمٌ هَنيء</td></tr>
+      <tr><td class="ar">ع</td><td class="ar">مِ<span class="hg">نْ</span> عِلْم</td><td class="ar">عليمٌ عَزيز</td></tr>
+      <tr><td class="ar">ح</td><td class="ar">يَ<span class="hg">نْ</span>حِتون</td><td class="ar">عفوٌّ حَليم</td></tr>
+      <tr><td class="ar">غ</td><td class="ar">مِ<span class="hg">نْ</span> غِل</td><td class="ar">نَفسٌ غير</td></tr>
+      <tr><td class="ar">خ</td><td class="ar">مِ<span class="hg">نْ</span> خَير</td><td class="ar">عليمٌ خَبير</td></tr>
+    </table>
+  </div>
+  <div id="d1b" class="dp">
+    <button class="cbtn" onclick="cd('d1b')">✕</button>
+    <div class="dph">الإدغام <span class="badge" style="background:#f3e8ff;color:#4A1A6B;">6 حروف — يَرمَلون</span></div>
+    <div class="dpb"><strong>التعريف:</strong> إدخال النون في الحرف التالي حتى يصيرا حرفاً مشدداً.<br>
+    ① <strong>إدغام بغنة (ي ن م و):</strong> مع بقاء الغنة حركتين.<br>
+    ② <strong>إدغام بلا غنة (ل ر):</strong> إدغام تام دون غنة.</div>
+    <div class="ex"><div class="exl">إدغام بغنة: مَن يَعمَل</div><div class="exa">مَ<span class="hi">نْ يَ</span>عمَل ← مَ<span class="hi">يَّ</span>عمَل</div></div>
+    <div class="ex" style="margin-top:.5rem;"><div class="exl">إدغام بلا غنة: مِن رَبِّهم</div><div class="exa">مِ<span class="hk">نْ رَ</span>بِّهم ← مِ<span class="hk">رَّ</span>بِّهم</div></div>
+    <div class="tip">استثناء: بُنيان — صِنوان — قِنوان — الدُّنيا (في كلمة واحدة لا إدغام).</div>
+  </div>
+  <div id="d1c" class="dp">
+    <button class="cbtn" onclick="cd('d1c')">✕</button>
+    <div class="dph">الإقلاب <span class="badge" style="background:#fff3e0;color:#8B4513;">حرف واحد: ب</span></div>
+    <div class="dpb"><strong>التعريف:</strong> قلب النون أو التنوين ميماً مخفاةً عند الباء مع الغنة بمقدار حركتين.</div>
+    <div class="ex"><div class="exl">أَنْبِئْهم — سَميعٌ بَصير</div><div class="exa">أَ<span class="hb">نْبِ</span>ئْهم ← أَ<span class="hb">مْبِ</span>ئهم</div></div>
+    <div class="tip">يُرمز له في المصاحف بميم صغيرة (م) فوق النون أو التنوين قبل الباء.</div>
+  </div>
+  <div id="d1d" class="dp">
+    <button class="cbtn" onclick="cd('d1d')">✕</button>
+    <div class="dph">الإخفاء الحقيقي <span class="badge" style="background:#e0f2f1;color:#1A5A5A;">15 حرفاً</span></div>
+    <div class="dpb"><strong>التعريف:</strong> النطق بالنون بصفة بين الإظهار والإدغام مع الغنة.<br><br>
+    <span style="font-family:'Amiri Quran';font-size:1.3rem;color:#1A5A5A;direction:rtl;">ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك</span><br><br>
+    <em>"صِفْ ذا ثَنا كَم جادَ شَخصٌ قَد سَما — دُمْ طَيِّباً زِدْ في تُقىً ضَع ظالِماً"</em></div>
+    <div class="ex"><div class="exl">مِن تَحتها — إِن كُنتم</div><div class="exa">مِ<span class="hk">نْ تَ</span>حتها &nbsp;|&nbsp; إِ<span class="hk">نْ كُ</span>نتم</div></div>
+  </div>
+</div>
+
+<!-- ============================== S2: MEEM ============================== -->
+<div id="s2" class="sec">
+  <div class="stitle">أحكام الميم الساكنة</div>
+  <div class="vid-box">
+    <div class="vid-box-header"><span class="vid-mic">🎙️</span>
+      <div><div class="vid-box-title">أحكام الميم الساكنة</div><div class="vid-box-sub">د. أيمن سويد — الحلقة 24</div></div>
+    </div>
+    <div class="vid-list">
+      <a class="vid-item" href="https://www.youtube.com/watch?v=gyrtmirqn_M" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/gyrtmirqn_M/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 24</div><div class="vid-name">أحكام الميم الساكنة — الإدغام والإخفاء والإظهار الشفوي</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+    </div>
+  </div>
+  <div class="rgrid">
+    <div class="rc cb" onclick="td('d2a')"><div class="ra">إدغام شفوي</div><div class="rn">الإدغام الشفوي</div><div class="re">عند الميم فقط</div></div>
+    <div class="rc ct" onclick="td('d2b')"><div class="ra">إخفاء شفوي</div><div class="rn">الإخفاء الشفوي</div><div class="re">عند الباء فقط</div></div>
+    <div class="rc cr" onclick="td('d2c')"><div class="ra">إظهار شفوي</div><div class="rn">الإظهار الشفوي</div><div class="re">باقي الحروف</div></div>
+  </div>
+  <div id="d2a" class="dp"><button class="cbtn" onclick="cd('d2a')">✕</button>
+    <div class="dph">الإدغام الشفوي</div>
+    <div class="dpb"><strong>التعريف:</strong> إدغام الميم الساكنة في ميم متحركة، فتصيران ميماً مشددة مع الغنة.</div>
+    <div class="ex"><div class="exl">كَم مِن فِئَة</div><div class="exa">كَ<span class="hi">مْ مِ</span>ن ← كَ<span class="hi">مِّ</span>ن</div></div>
+  </div>
+  <div id="d2b" class="dp"><button class="cbtn" onclick="cd('d2b')">✕</button>
+    <div class="dph">الإخفاء الشفوي</div>
+    <div class="dpb"><strong>التعريف:</strong> إخفاء الميم الساكنة عند الباء مع الغنة. كلا الحرفين مخرجه الشفتان.</div>
+    <div class="ex"><div class="exl">تَرميهم بِحجارة</div><div class="exa">تَرميهِ<span class="hk">مْ بِ</span>حجارة</div></div>
+    <div class="tip">يجب انطباق الشفتين انطباقاً ناقصاً مع الغنة.</div>
+  </div>
+  <div id="d2c" class="dp"><button class="cbtn" onclick="cd('d2c')">✕</button>
+    <div class="dph">الإظهار الشفوي</div>
+    <div class="dpb"><strong>التعريف:</strong> إظهار الميم الساكنة إذا جاء بعدها أي حرف غير الميم والباء (26 حرفاً).</div>
+    <div class="ex"><div class="exl">لهم ما يشاؤون</div><div class="exa">لَهُ<span style="color:#8B1A1A;font-weight:700;">مْ</span> ما يَشاؤون</div></div>
+  </div>
+</div>
+
+<!-- ============================== S3: MADD ============================== -->
+<div id="s3" class="sec">
+  <div class="stitle">أحكام المد</div>
+  <div class="vid-box">
+    <div class="vid-box-header"><span class="vid-mic">🎙️</span>
+      <div><div class="vid-box-title">أحكام المد</div><div class="vid-box-sub">د. أيمن سويد — شرح التجويد المصور</div></div>
+    </div>
+    <div class="vid-list">
+      <a class="vid-item" href="https://www.youtube.com/watch?v=3tL5YYdjnTw" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/3tL5YYdjnTw/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 27</div><div class="vid-name">المدود — تعريف المد وحروفه</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+      <a class="vid-item" href="https://www.youtube.com/watch?v=d_W1cbLbwM0" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/d_W1cbLbwM0/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 29</div><div class="vid-name">المد الطبيعي — تفصيل وأمثلة</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+    </div>
+  </div>
+  <table class="tbl" style="margin-bottom:1rem;">
+    <tr><th>نوع المد</th><th>الشرط</th><th>المقدار</th><th>مثال</th></tr>
+    <tr><td><strong>الطبيعي</strong></td><td>حرف مد بلا همزة ولا سكون</td><td>حركتان</td><td class="ar"><span class="hm">قَا</span>لَ</td></tr>
+    <tr><td><strong>المتصل الواجب</strong></td><td>حرف مد + همزة في كلمة واحدة</td><td>4-5 حركات</td><td class="ar">جَ<span class="hm">اءَ</span></td></tr>
+    <tr><td><strong>المنفصل الجائز</strong></td><td>حرف مد + همزة في كلمتين</td><td>2-5 حركات</td><td class="ar">يَ<span class="hm">ا أَ</span>يُّها</td></tr>
+    <tr><td><strong>العارض للسكون</strong></td><td>حرف مد + وقف</td><td>2-4-6</td><td class="ar">نَستَع<span class="hm">ينْ</span></td></tr>
+    <tr><td><strong>مد اللين</strong></td><td>و/ي ساكنة مفتوح ما قبلها + وقف</td><td>2-4-6</td><td class="ar">خَ<span class="hm">وْ</span>فْ</td></tr>
+    <tr><td><strong>مد البدل</strong></td><td>همزة فمد</td><td>حركتان</td><td class="ar"><span class="hm">آ</span>مَنُوا</td></tr>
+    <tr><td><strong>اللازم الكلمي</strong></td><td>حرف مد + سكون أصلي</td><td>6 حركات</td><td class="ar">الضَّ<span class="hm">الِّ</span>ين</td></tr>
+    <tr><td><strong>اللازم الحرفي</strong></td><td>فواتح سور ذات المد</td><td>6 حركات</td><td class="ar"><span class="hm">الم</span> — <span class="hm">كهيعص</span></td></tr>
+    <tr><td><strong>الصلة الكبرى</strong></td><td>هاء الضمير + همزة بعدها</td><td>4-5 حركات</td><td class="ar">عِندَ<span class="hm">هُو</span> اللهُ</td></tr>
+    <tr><td><strong>الصلة الصغرى</strong></td><td>هاء الضمير بلا همزة بعدها</td><td>حركتان</td><td class="ar">إِنَّ<span class="hm">هُو</span> كَانَ</td></tr>
+  </table>
+  <div class="tip">كلما زاد سبب المد (الهمزة أو السكون)، زاد مقداره.</div>
+</div>
+
+<!-- ============================== S4: QALQALA ============================== -->
+<div id="s4" class="sec">
+  <div class="stitle">القلقلة</div>
+  <div class="vid-box">
+    <div class="vid-box-header"><span class="vid-mic">🎙️</span>
+      <div><div class="vid-box-title">القلقلة</div><div class="vid-box-sub">د. أيمن سويد</div></div>
+    </div>
+    <div class="vid-list">
+      <a class="vid-item" href="https://www.youtube.com/watch?v=lC2afclUw4w" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/lC2afclUw4w/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">دقائق في التجويد</div><div class="vid-name">القلقلة — تعريف وأمثلة تطبيقية</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+      <a class="vid-item" href="https://www.youtube.com/watch?v=KgotHP9a7-o" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/KgotHP9a7-o/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 13</div><div class="vid-name">باب صفات الحروف — القلقلة</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+    </div>
+  </div>
+  <div class="card"><div class="ctitle">التعريف والحروف</div>
+  <div class="cbody">القلقلة: اضطراب الصوت عند النطق بالحرف الساكن حتى يُسمع له نبرة قوية.<br><br>
+  <strong>حروفها — قَطْبُ جَدٍّ:</strong>
+  <span style="font-family:'Amiri Quran';font-size:2.6rem;color:var(--green);display:block;text-align:center;padding:.5rem;letter-spacing:.6rem;">ق &nbsp; ط &nbsp; ب &nbsp; ج &nbsp; د</span></div></div>
+  <table class="tbl" style="margin-bottom:1rem;">
+    <tr><th>الدرجة</th><th>الحالة</th><th>الشدة</th><th>مثال</th></tr>
+    <tr><td><strong>الصغرى</strong></td><td>ساكن في وسط الكلمة</td><td>خفيفة</td><td class="ar">يَ<span class="hq">قْ</span>طَع</td></tr>
+    <tr><td><strong>الكبرى</strong></td><td>ساكن عند الوقف</td><td>متوسطة</td><td class="ar">الفَلَ<span class="hq">قْ</span></td></tr>
+    <tr><td><strong>الأكبر</strong></td><td>مشدد عند الوقف</td><td>قوية جداً</td><td class="ar">الحَ<span class="hq">قّْ</span></td></tr>
+  </table>
+</div>
+
+<!-- ============================== S5: TAFKHIM ============================== -->
+<div id="s5" class="sec">
+  <div class="stitle">التفخيم والترقيق</div>
+  <div class="vid-box">
+    <div class="vid-box-header"><span class="vid-mic">🎙️</span>
+      <div><div class="vid-box-title">التفخيم والترقيق — اللام والراء</div><div class="vid-box-sub">د. أيمن سويد — الحلقة 11</div></div>
+    </div>
+    <div class="vid-list">
+      <a class="vid-item" href="https://www.youtube.com/watch?v=MTkmsbjK0Tc" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/MTkmsbjK0Tc/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 11</div><div class="vid-name">صفات الحروف — حكم الألف واللام والراء</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+    </div>
+  </div>
+  <table class="tbl" style="margin-bottom:1rem;">
+    <tr><th>النوع</th><th>الحروف</th><th>الحكم</th></tr>
+    <tr><td><strong>حروف الاستعلاء السبعة</strong></td><td class="ar" style="font-size:1.2rem;color:#8B1A1A;">خ ص ض غ ط ق ظ</td><td>دائماً مفخمة</td></tr>
+    <tr><td><strong>لام الجلالة بعد فتح/ضم</strong></td><td class="ar">اللّٰه</td><td>مفخمة — قَالَ اللهُ</td></tr>
+    <tr><td><strong>لام الجلالة بعد كسر</strong></td><td class="ar">اللّٰه</td><td>مرققة — بِسمِ الله</td></tr>
+    <tr><td><strong>باقي الحروف (21)</strong></td><td>21 حرفاً</td><td>دائماً مرققة</td></tr>
+  </table>
+  <div class="card"><div class="ctitle">أحكام الراء</div>
+  <div class="cbody"><strong>تُفخَّم في:</strong> الفتح — الضم — السكون بعد فتح أو ضم — السكون بعد كسر عارض — السكون قبل حرف استعلاء — الوقف بعد فتح أو ضم.<br><br>
+  <strong>تُرقَّق في:</strong> الكسر — السكون بعد كسر أصلي — الوقف بعد كسر أو ياء ساكنة.</div></div>
+</div>
+
+<!-- ============================== S6: SIFAT ============================== -->
+<div id="s6" class="sec">
+  <div class="stitle">صفات الحروف — 17 صفة</div>
+  <div class="vid-box">
+    <div class="vid-box-header"><span class="vid-mic">🎙️</span>
+      <div><div class="vid-box-title">صفات الحروف</div><div class="vid-box-sub">د. أيمن سويد — دورة التجويد المصور</div></div>
+    </div>
+    <div class="vid-list">
+      <a class="vid-item" href="https://www.youtube.com/watch?v=VAMMlKq59jw" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/VAMMlKq59jw/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">دورة التجويد المصور</div><div class="vid-name">مخارج الحروف والصفات — الجزء الرابع</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+      <a class="vid-item" href="https://www.youtube.com/watch?v=9u6naFV6Uf0" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/9u6naFV6Uf0/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">طبعة جديدة</div><div class="vid-name">التجويد المصور — عرض شامل للكتاب</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+    </div>
+  </div>
+  <div class="card"><div class="ctitle">تعريف الصفة وأقسامها</div>
+  <div class="cbody">الصفة: حالة تعرض للحرف عند نطقه.<br>① <strong>ذات الضد (5 أزواج = 10 صفات)</strong> &nbsp; ② <strong>لا ضد لها (7 صفات)</strong></div></div>
+
+  <div style="font-family:'Amiri';font-size:1.1rem;font-weight:700;margin:1rem 0 .6rem;border-right:3px solid var(--gold);padding-right:.5rem;">أولاً: الصفات ذات الأضداد</div>
+  <div class="sif-grid">
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الجهر</span><span class="sc-opp">↔ الهمس</span></div><div class="sc-ar">جهر</div><div class="sc-body">انحباس جريان النفس عند النطق.</div><div class="sc-letters" style="color:var(--blue);">ع ز ذ م و ب ج ي ر ض ل ن ق غ د ظ أ</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الهمس</span><span class="sc-opp">↔ الجهر</span></div><div class="sc-ar">همس</div><div class="sc-body">جريان النفس عند النطق. "فَحَثَّهُ شَخصٌ سَكَتَ"</div><div class="sc-letters" style="color:var(--teal);">ف ح ث هـ ش خ ص س ك ت</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الشدة</span><span class="sc-opp">↔ الرخاوة</span></div><div class="sc-ar">شدة</div><div class="sc-body">انحباس جريان الصوت. "أَجِدُ قِطٍّ بَكَتْ"</div><div class="sc-letters" style="color:var(--red);">أ ج د ق ط ب ك ت</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الرخاوة</span><span class="sc-opp">↔ الشدة</span></div><div class="sc-ar">رخاوة</div><div class="sc-body">جريان الصوت عند النطق.</div><div class="sc-letters" style="color:var(--green);">خ ذ غ ث ح ظ ف ض ش و ص ز ي س هـ ع</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">التوسط</span><span class="sc-opp">بين الشدة والرخاوة</span></div><div class="sc-ar">بينية</div><div class="sc-body">لا انحباس تام ولا جريان تام. "لِنْ عُمَرَ"</div><div class="sc-letters" style="color:var(--purple);">ل ن ع م ر</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الاستعلاء</span><span class="sc-opp">↔ الاستفال</span></div><div class="sc-ar">استعلاء</div><div class="sc-body">ارتفاع اللسان إلى الحنك الأعلى.</div><div class="sc-letters" style="color:#8B1A1A;">خ ص ض غ ط ق ظ</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الاستفال</span><span class="sc-opp">↔ الاستعلاء</span></div><div class="sc-ar">استفال</div><div class="sc-body">انخفاض اللسان إلى قاع الفم.</div><div class="sc-letters" style="color:var(--teal);">22 حرفاً</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الإطباق</span><span class="sc-opp">↔ الانفتاح</span></div><div class="sc-ar">إطباق</div><div class="sc-body">تلاقي اللسان والحنك الأعلى — أقوى صفات التفخيم.</div><div class="sc-letters" style="color:#8B1A1A;">ص ض ط ظ</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الانفتاح</span><span class="sc-opp">↔ الإطباق</span></div><div class="sc-ar">انفتاح</div><div class="sc-body">انفتاح ما بين اللسان والحنك — 24 حرفاً.</div><div class="sc-letters">24 حرفاً</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الإذلاق</span><span class="sc-opp">↔ الإصمات</span></div><div class="sc-ar">إذلاق</div><div class="sc-body">سهولة النطق. "فَرَّ مِن لُبٍّ"</div><div class="sc-letters" style="color:var(--green);">ف ر م ن ل ب</div></div>
+  </div>
+
+  <div style="font-family:'Amiri';font-size:1.1rem;font-weight:700;margin:1rem 0 .6rem;border-right:3px solid var(--gold);padding-right:.5rem;">ثانياً: الصفات التي لا ضد لها</div>
+  <div class="sif-grid">
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الصفير</span></div><div class="sc-ar">صفير</div><div class="sc-body">صوت حاد يشبه صفير الطائر.</div><div class="sc-letters" style="color:var(--blue);">ص ز س</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">القلقلة</span></div><div class="sc-ar">قلقلة</div><div class="sc-body">اضطراب الصوت عند سكون الحرف.</div><div class="sc-letters" style="color:var(--green);">ق ط ب ج د</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">اللين</span></div><div class="sc-ar">لين</div><div class="sc-body">سهولة خروج الحرف دون كلفة.</div><div class="sc-letters" style="color:var(--purple);">و ي (ساكنتان مفتوح ما قبلهما)</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الانحراف</span></div><div class="sc-ar">انحراف</div><div class="sc-body">ميل الصوت لجهة أخرى.</div><div class="sc-letters" style="color:var(--teal);">ل ر</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">التكرير</span></div><div class="sc-ar">تكرير</div><div class="sc-body">ارتعاد طرف اللسان — يجب إخفاؤه.</div><div class="sc-letters" style="color:var(--red);">ر فقط</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">التفشي</span></div><div class="sc-ar">تفشي</div><div class="sc-body">انتشار الهواء في الفم عند النطق.</div><div class="sc-letters" style="color:var(--orange);">ش فقط</div></div>
+    <div class="sif-card"><div class="sc-top"><span class="sc-name">الاستطالة</span></div><div class="sc-ar">استطالة</div><div class="sc-body">امتداد الصوت في مخرج الحرف.</div><div class="sc-letters" style="color:var(--purple);">ض فقط</div></div>
+  </div>
+  <div class="card"><div class="ctitle">أقوى الحروف وأضعفها</div>
+  <div class="cbody"><strong>أقوى الحروف:</strong> الطاء (ط) — جهر + شدة + استعلاء + إطباق + إذلاق.<br>
+  <strong>أضعف الحروف:</strong> الهاء (هـ) — همس + رخاوة + استفال + انفتاح + إصمات.</div></div>
+</div>
+
+<!-- ============================== S7: MAKHAARIJ ============================== -->
+<div id="s7" class="sec">
+  <div class="stitle">مخارج الحروف — 17 مخرجاً</div>
+  <div class="vid-box">
+    <div class="vid-box-header"><span class="vid-mic">🎙️</span>
+      <div><div class="vid-box-title">مخارج الحروف</div><div class="vid-box-sub">د. أيمن سويد — شرح تفصيلي</div></div>
+    </div>
+    <div class="vid-list">
+      <a class="vid-item" href="https://www.youtube.com/watch?v=Es_a0IGHofc" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/Es_a0IGHofc/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 3</div><div class="vid-name">مخرج الجوف — حروف المد</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+      <a class="vid-item" href="https://www.youtube.com/watch?v=2BFpfzbBBVo" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/2BFpfzbBBVo/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 4</div><div class="vid-name">مخرج الحلق — ء هـ ع ح غ خ</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+      <a class="vid-item" href="https://www.youtube.com/watch?v=vwaWWcV0Z5M" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/vwaWWcV0Z5M/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">الحلقة 5</div><div class="vid-name">مخرج اللسان — 18 حرفاً</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+      <a class="vid-item" href="https://www.youtube.com/watch?v=GLQ4oq5oCBs" target="_blank">
+        <div class="vid-thumb"><img src="https://img.youtube.com/vi/GLQ4oq5oCBs/mqdefault.jpg" alt=""><div class="vid-thumb-overlay"><div class="play-btn"></div></div></div>
+        <div class="vid-info"><div class="vid-ep">دورة التجويد المصور</div><div class="vid-name">مخارج الحروف والصفات — الجزء الأول</div></div>
+        <div class="vid-arrow">←</div>
+      </a>
+    </div>
+  </div>
+  <div class="mk-grid">
+    <div class="mk-c"><div class="mk-ic">🫁</div><div class="mk-t">الجوف</div><div class="mk-l">ا و ي</div><div class="mk-s">حروف المد</div></div>
+    <div class="mk-c"><div class="mk-ic">🗣️</div><div class="mk-t">أقصى الحلق</div><div class="mk-l">ء هـ</div><div class="mk-s">الهمزة والهاء</div></div>
+    <div class="mk-c"><div class="mk-ic">🗣️</div><div class="mk-t">وسط الحلق</div><div class="mk-l">ع ح</div><div class="mk-s">العين والحاء</div></div>
+    <div class="mk-c"><div class="mk-ic">🗣️</div><div class="mk-t">أدنى الحلق</div><div class="mk-l">غ خ</div><div class="mk-s">الغين والخاء</div></div>
+    <div class="mk-c"><div class="mk-ic">👅</div><div class="mk-t">أقصى اللسان</div><div class="mk-l">ق ك</div><div class="mk-s">القاف والكاف</div></div>
+    <div class="mk-c"><div class="mk-ic">👅</div><div class="mk-t">وسط اللسان</div><div class="mk-l">ج ش ي</div><div class="mk-s">الجيم والشين والياء</div></div>
+    <div class="mk-c"><div class="mk-ic">👅</div><div class="mk-t">اللسان + الأضراس</div><div class="mk-l">ض</div><div class="mk-s">أصعب الحروف</div></div>
+    <div class="mk-c"><div class="mk-ic">👅</div><div class="mk-t">حافة اللسان</div><div class="mk-l">ل</div><div class="mk-s">اللام</div></div>
+    <div class="mk-c"><div class="mk-ic">👅</div><div class="mk-t">طرف اللسان</div><div class="mk-l">ن</div><div class="mk-s">النون</div></div>
+    <div class="mk-c"><div class="mk-ic">👅</div><div class="mk-t">ظهر طرف اللسان</div><div class="mk-l">ر</div><div class="mk-s">الراء</div></div>
+    <div class="mk-c"><div class="mk-ic">👅</div><div class="mk-t">رأس اللسان + الثنايا</div><div class="mk-l">ط د ت</div><div class="mk-s">النطعية</div></div>
+    <div class="mk-c"><div class="mk-ic">👅</div><div class="mk-t">طرف اللسان + أصول الثنايا</div><div class="mk-l">ص ز س</div><div class="mk-s">الأسلية — الصفير</div></div>
+    <div class="mk-c"><div class="mk-ic">👅</div><div class="mk-t">طرف اللسان + أطراف الثنايا</div><div class="mk-l">ظ ذ ث</div><div class="mk-s">اللثوية</div></div>
+    <div class="mk-c"><div class="mk-ic">💋</div><div class="mk-t">باطن الشفة + الثنايا</div><div class="mk-l">ف</div><div class="mk-s">الفاء</div></div>
+    <div class="mk-c"><div class="mk-ic">💋</div><div class="mk-t">الشفتان معاً</div><div class="mk-l">ب م و</div><div class="mk-s">الشفويات</div></div>
+    <div class="mk-c"><div class="mk-ic">👃</div><div class="mk-t">الخيشوم</div><div class="mk-l">غنة</div><div class="mk-s">الغنة في ن م</div></div>
+  </div>
+</div>
+
+<!-- ============================== S8: WAQF ============================== -->
+<div id="s8" class="sec">
+  <div class="stitle">الوقف والابتداء</div>
+  <div class="card"><div class="ctitle">تعريف الوقف</div>
+  <div class="cbody">الوقف: قطع الصوت عن الكلمة زمناً يُتنفس فيه بنية استئناف القراءة.</div></div>
+  <table class="tbl" style="margin-bottom:1rem;">
+    <tr><th>النوع</th><th>الرمز</th><th>المعنى</th><th>الحكم</th></tr>
+    <tr><td><strong>التام</strong></td><td class="ar" style="color:var(--green);font-size:1.3rem;">ط / قلى</td><td>تمّ الكلام معنىً وإعراباً</td><td>الوقف أولى</td></tr>
+    <tr><td><strong>الكافي</strong></td><td class="ar" style="color:var(--blue);font-size:1.3rem;">ج</td><td>يصح الوقف والوصل</td><td>الوقف أحسن</td></tr>
+    <tr><td><strong>الحسن</strong></td><td class="ar" style="color:var(--teal);font-size:1.3rem;">ز / صلى</td><td>الوصل أولى</td><td>الوصل أحسن</td></tr>
+    <tr><td><strong>القبيح</strong></td><td class="ar" style="color:var(--red);font-size:1.3rem;">لا</td><td>يُحيل المعنى</td><td>ممنوع إلا اضطراراً</td></tr>
+    <tr><td><strong>المتعانق</strong></td><td class="ar" style="color:var(--purple);font-size:1.3rem;">∴ ∴</td><td>وقفان متعانقان</td><td>يُوقف على أحدهما</td></tr>
+  </table>
+  <div class="card"><div class="ctitle">أحكام الوقف على أواخر الكلمات</div>
+  <div class="cbody">① المتحرك: يُوقف بالسكون &nbsp; ② المنوّن بالفتح: يُوقف بألف &nbsp; ③ التاء المربوطة: تصير هاء &nbsp; ④ الهاء الضمير: بلا صلة &nbsp; ⑤ المشدد: يُوقف بتشديد</div></div>
+</div>
+
+<!-- ============================== S9: LAAM ============================== -->
+<div id="s9" class="sec">
+  <div class="stitle">أحكام اللام والراء</div>
+  <div class="card"><div class="ctitle">اللام الشمسية واللام القمرية</div>
+  <div class="cbody">
+    <strong>الشمسية (14):</strong> <span style="font-family:'Amiri Quran';font-size:1.3rem;color:var(--red);">ت ث د ذ ر ز س ش ص ض ط ظ ل ن</span><br>مثال: الشَّمس — الرَّحمن — التَّوبة<br><br>
+    <strong>القمرية (14):</strong> <span style="font-family:'Amiri Quran';font-size:1.3rem;color:var(--blue);">أ ب ج ح خ ع غ ف ق ك م و هـ ي</span><br>مثال: القمر — الكتاب — العالَم
+  </div></div>
+  <div class="card" style="margin-top:.75rem;"><div class="ctitle">لام لفظ الجلالة</div>
+  <div class="cbody"><strong>تفخيم:</strong> بعد فتح أو ضم — قَالَ اللهُ<br><strong>ترقيق:</strong> بعد كسر — بِسمِ الله</div></div>
+</div>
+
+<!-- ============================== S10: HAMZ ============================== -->
+<div id="s10" class="sec">
+  <div class="stitle">الهمز والتسهيل</div>
+  <div class="card"><div class="ctitle">أنواع الهمز</div>
+  <div class="cbody">
+    <strong>① همزة القطع:</strong> تُثبت في الوصل والابتداء — أَكرَم — إِبراهيم<br>
+    <strong>② همزة الوصل:</strong> تُثبت ابتداءً وتُحذف وصلاً — ٱلله — ٱقرأ
+  </div></div>
+  <div class="card" style="margin-top:.75rem;"><div class="ctitle">الغنة</div>
+  <div class="cbody">الغنة: صوت أغنّ من الخيشوم — لازمة للنون والميم — مقدارها حركتان.<br><br>
+  ① أكملها: في الإدغام بغنة والإخفاء والإقلاب<br>
+  ② أدناها: في الإظهار<br>
+  ③ متوسطة: في الإدغام الشفوي وإظهار الميم</div></div>
+</div>
+
+<!-- ============================== EXERCISES ============================== -->
+<div id="sex" class="sec">
+  <div class="stitle">📝 التمارين التفاعلية</div>
+  <div class="ex-tabs">
+    <button class="xtab on" onclick="xt('tx1',this)">اختيار متعدد — مستوى أول</button>
+    <button class="xtab" onclick="xt('tx2',this)">اختيار متعدد — مستوى ثانٍ</button>
+    <button class="xtab" onclick="xt('tx3',this)">تمييز حكم الآية</button>
+    <button class="xtab" onclick="xt('tx4',this)">مطابقة الصفات</button>
+    <button class="xtab" onclick="xt('tx5',this)">تحديد المخارج</button>
+  </div>
+  <div id="tx1" class="xsec on">
+    <div class="score-row"><span class="score-box" id="sc1">0 / 0</span><div class="prog-bar"><div class="prog-fill" id="pf1" style="width:0%;"></div></div><button class="btn btn-o" onclick="resetEx(1)">إعادة</button></div>
+    <div id="ex1-container"></div>
+  </div>
+  <div id="tx2" class="xsec">
+    <div class="score-row"><span class="score-box" id="sc2">0 / 0</span><div class="prog-bar"><div class="prog-fill" id="pf2" style="width:0%;"></div></div><button class="btn btn-o" onclick="resetEx(2)">إعادة</button></div>
+    <div id="ex2-container"></div>
+  </div>
+  <div id="tx3" class="xsec">
+    <div class="score-row"><span class="score-box" id="sc3">0 / 0</span><div class="prog-bar"><div class="prog-fill" id="pf3" style="width:0%;"></div></div><button class="btn btn-o" onclick="resetEx(3)">إعادة</button></div>
+    <div id="ex3-container"></div>
+  </div>
+  <div id="tx4" class="xsec">
+    <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem;">
+      <span class="score-box" id="match-score">تطابق: 0 / 7</span>
+      <button class="btn btn-o" onclick="initMatch()">إعادة</button>
+      <span id="match-fb" style="font-size:.82rem;padding:.35rem .68rem;border-radius:6px;"></span>
+    </div>
+    <div class="match-wrap">
+      <div class="match-col"><h4>الصفة</h4><div id="match-left"></div></div>
+      <div class="match-col"><h4>وصفها</h4><div id="match-right"></div></div>
+    </div>
+  </div>
+  <div id="tx5" class="xsec">
+    <div class="score-row"><span class="score-box" id="sc5">0 / 0</span><div class="prog-bar"><div class="prog-fill" id="pf5" style="width:0%;"></div></div><button class="btn btn-o" onclick="resetEx(5)">إعادة</button></div>
+    <div id="ex5-container"></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(btn){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+  if(id==='sex') initAllEx();
+}
+function td(id){
+  const el=document.getElementById(id),was=el.classList.contains('on');
+  document.querySelectorAll('.dp').forEach(d=>d.classList.remove('on'));
+  if(!was) el.classList.add('on');
+}
+function cd(id){document.getElementById(id).classList.remove('on');}
+function xt(id,btn){
+  document.querySelectorAll('.xsec').forEach(s=>s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.xtab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+const Q1=[
+  {q:'ما حكم النون الساكنة قبل حرف الهاء؟',opts:['إدغام','إظهار','إخفاء','إقلاب'],a:1,e:'الهاء من حروف الإظهار الحلقي الستة.'},
+  {q:'ما حكم النون الساكنة قبل حرف الباء؟',opts:['إظهار','إدغام','إخفاء','إقلاب'],a:3,e:'النون الساكنة + الباء = إقلاب.'},
+  {q:'حروف القلقلة الخمسة مجموعة في...',opts:['سقط بجد','قطب جد','صف ذا ثنا','يرملون'],a:1,e:'ق ط ب ج د — "قطب جد".'},
+  {q:'مقدار المد الطبيعي...',opts:['حركة واحدة','حركتان','أربع حركات','ست حركات'],a:1,e:'المد الطبيعي مقداره حركتان دائماً.'},
+  {q:'الميم الساكنة قبل الباء حكمها...',opts:['إدغام شفوي','إظهار شفوي','إخفاء شفوي','قلقلة'],a:2,e:'الميم + الباء = إخفاء شفوي مع الغنة.'},
+  {q:'عدد حروف الإخفاء الحقيقي...',opts:['6','10','15','22'],a:2,e:'حروف الإخفاء الحقيقي 15 حرفاً.'},
+  {q:'اللام الشمسية تُدغم في...',opts:['14 حرفاً','15 حرفاً','6 حروف','28 حرفاً'],a:0,e:'اللام الشمسية تُدغم في 14 حرفاً.'},
+  {q:'مقدار المد اللازم...',opts:['حركتان','4 حركات','5 حركات','6 حركات'],a:3,e:'المد اللازم مقداره 6 حركات وجوباً.'},
+  {q:'الرمز (لا) في المصحف يدل على...',opts:['وقف تام','وقف كافٍ','وقف حسن','وقف قبيح'],a:3,e:'الرمز (لا) = الوقف القبيح.'},
+  {q:'الصفة التي تختص بحرف الراء وحده...',opts:['الصفير','القلقلة','التكرير','الاستطالة'],a:2,e:'التكرير صفة تختص بحرف الراء وحده.'},
+];
+const Q2=[
+  {q:'في قوله تعالى: مِنْ مَاءٍ — ما حكم النون؟',opts:['إظهار','إدغام بغنة','إدغام بلا غنة','إخفاء'],a:1,e:'الميم من حروف يرملون — إدغام بغنة.'},
+  {q:'في (عَنْ كَثير) — حكم النون...',opts:['إظهار','إدغام','إقلاب','إخفاء'],a:3,e:'الكاف من حروف الإخفاء.'},
+  {q:'درجة القلقلة في (الحَقّ) عند الوقف...',opts:['الصغرى','الكبرى','الأكبر','لا قلقلة'],a:2,e:'حرف مشدد عند الوقف = القلقلة الأكبر.'},
+  {q:'نوع المد في كلمة (السَّمَاءَ)؟',opts:['مد طبيعي','مد متصل','مد منفصل','مد لازم'],a:1,e:'حرف مد + همزة في كلمة واحدة = مد متصل واجب.'},
+  {q:'أيّ هذه الحروف يجمع الجهر والشدة والاستعلاء والإطباق؟',opts:['الكاف','القاف','الطاء','الجيم'],a:2,e:'الطاء تجمع: جهر + شدة + استعلاء + إطباق + إذلاق.'},
+  {q:'همزة الوصل تُثبت...',opts:['في الوصل فقط','في الابتداء فقط','كليهما','لا تُثبت'],a:1,e:'همزة الوصل تُثبت في الابتداء وتُحذف في الوصل.'},
+  {q:'حكم الراء في كلمة (فِرعَون)؟',opts:['تفخيم','ترقيق','يجوز الوجهان','لا حكم'],a:1,e:'راء ساكنة بعد كسر أصلي = ترقيق.'},
+  {q:'مخرج حروف الصفير (ص ز س)...',opts:['الحلق','اللثة','اللسان مع أصول الثنايا','الشفتان'],a:2,e:'الأسلية: طرف اللسان مع أصول الثنايا السفلى.'},
+  {q:'الغنة مقدارها...',opts:['حركة','حركتان','ثلاث','أربع'],a:1,e:'الغنة مقدارها حركتان.'},
+  {q:'في (أَنْ بُورِكَ) ما الحكم؟',opts:['إظهار','إدغام بغنة','إقلاب','إخفاء'],a:2,e:'نون ساكنة + باء = إقلاب.'},
+];
+const Q3=[
+  {q:'حدِّد حكم النون في: مِنْ بَعْدِ مَا',opts:['إظهار','إدغام','إقلاب','إخفاء'],a:2,e:'نون ساكنة + باء = إقلاب.'},
+  {q:'ما الحكم في: يَنْهَرْهُمَا؟',opts:['إظهار','إدغام','إخفاء','إقلاب'],a:0,e:'الهاء من حروف الإظهار الحلقي.'},
+  {q:'نوع المد في: وَالسَّمَاءَ بَنَيْنَاهَا',opts:['مد طبيعي','مد متصل','مد منفصل','مد لازم'],a:1,e:'ألف مد + همزة في كلمة = مد متصل واجب.'},
+  {q:'حكم الميم في: هُمْ فِيهَا؟',opts:['إدغام شفوي','إخفاء شفوي','إظهار شفوي','قلقلة'],a:2,e:'الميم + الفاء = إظهار شفوي.'},
+  {q:'درجة القلقلة في وسط: يَقْطَعُون',opts:['قلقلة كبرى','قلقلة صغرى','قلقلة أكبر','لا قلقلة'],a:1,e:'حرف قلقلة ساكن في وسط الكلمة = قلقلة صغرى.'},
+  {q:'حكم النون في: مَنْ يَعمَل',opts:['إظهار','إدغام بغنة','إدغام بلا غنة','إخفاء'],a:1,e:'الياء من حروف يرملون ذات الغنة.'},
+  {q:'حكم النون في: مِنْ لَدُنْهُ',opts:['إظهار','إدغام بغنة','إدغام بلا غنة','إخفاء'],a:2,e:'اللام من يرملون — إدغام بلا غنة.'},
+  {q:'حكم النون في: مِنْ دُونِ اللهِ',opts:['إظهار','إدغام','إقلاب','إخفاء'],a:3,e:'الدال من حروف الإخفاء الخمسة عشر.'},
+];
+const Q5=[
+  {q:'مخرج حرف الضاد...',opts:['الحلق','جانب اللسان مع الأضراس','الشفتان','وسط اللسان'],a:1,e:'الضاد: اللسان من جانبه مع الأضراس العليا.'},
+  {q:'مخرج حروف الصفير (ص ز س)...',opts:['الحلق','وسط اللسان','طرف اللسان + أصول الثنايا','الشفتان'],a:2,e:'الأسلية: طرف اللسان مع أصول الثنايا السفلى.'},
+  {q:'حروف (ب م و) مخرجها...',opts:['الحلق','اللسان','الشفتان','الخيشوم'],a:2,e:'الباء والميم والواو شفوية المخرج.'},
+  {q:'الغنة مخرجها...',opts:['الحلق','الخيشوم','اللسان','الشفتان'],a:1,e:'الغنة مخرجها الخيشوم.'},
+  {q:'حروف المد (ا و ي) مخرجها...',opts:['الحلق','الجوف','اللسان','الشفتان'],a:1,e:'حروف المد مخرجها الجوف.'},
+  {q:'مخرج حرف الفاء...',opts:['الشفتان معاً','باطن الشفة السفلى + الثنايا العليا','الحلق','اللسان'],a:1,e:'الفاء: باطن الشفة السفلى مع أطراف الثنايا العليا.'},
+  {q:'مخرج حرف القاف...',opts:['أقصى اللسان مع الحنك','وسط اللسان','طرف اللسان','الحلق'],a:0,e:'القاف: أقصى اللسان مع ما يحاذيه من الحنك الأعلى.'},
+];
+const matchData=[
+  {sifa:'الجهر',desc:'انحباس جريان النفس'},
+  {sifa:'الهمس',desc:'جريان النفس حال النطق'},
+  {sifa:'الشدة',desc:'انحباس جريان الصوت'},
+  {sifa:'الرخاوة',desc:'جريان الصوت حال النطق'},
+  {sifa:'الاستعلاء',desc:'ارتفاع اللسان للحنك'},
+  {sifa:'القلقلة',desc:'اضطراب الصوت عند السكون'},
+  {sifa:'الإطباق',desc:'تلاقي اللسان والحنك الأعلى'},
+];
+
+const state={ex1:{answered:0,correct:0},ex2:{answered:0,correct:0},ex3:{answered:0,correct:0},ex5:{answered:0,correct:0}};
+let matchSel=null,matchScore=0,exInited=false;
+
+function buildMCQ(questions,containerId,exNum){
+  const c=document.getElementById(containerId);c.innerHTML='';
+  questions.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='qbox';
+    d.innerHTML=`<div class="qnum">سؤال ${i+1} من ${questions.length}</div>
+      <div class="qtext">${q.q}</div>
+      <div class="opts">${q.opts.map((o,j)=>`<button class="opt" data-idx="${j}" data-qi="${i}" data-ex="${exNum}">${o}</button>`).join('')}</div>
+      <div class="fb" id="fb-${exNum}-${i}"></div>`;
+    c.appendChild(d);
+  });
+  c.querySelectorAll('.opt').forEach(b=>{
+    b.addEventListener('click',function(){
+      const qi=+this.dataset.qi,en=+this.dataset.ex,sel=+this.dataset.idx;
+      const box=this.closest('.qbox');
+      if(box.dataset.done) return;
+      box.dataset.done='1';
+      const qs=(en===1?Q1:en===2?Q2:en===3?Q3:Q5);
+      const q=qs[qi],corr=q.a,right=(sel===corr);
+      box.querySelectorAll('.opt').forEach((o,j)=>{
+        if(j===corr) o.classList.add('ok');
+        else if(j===sel) o.classList.add('no');
+        o.classList.add('locked');
+      });
+      const fb=document.getElementById(`fb-${en}-${qi}`);
+      fb.className='fb on '+(right?'ok':'no');
+      fb.textContent=(right?'✅ أحسنت! ':'❌ الصحيح: '+q.opts[corr]+' — ')+q.e;
+      const s=state['ex'+en];s.answered++;if(right)s.correct++;
+      document.getElementById('sc'+en).textContent=s.correct+' / '+s.answered;
+      document.getElementById('pf'+en).style.width=(s.answered/qs.length*100)+'%';
+    });
+  });
+}
+function resetEx(n){
+  state['ex'+n]={answered:0,correct:0};
+  document.getElementById('sc'+n).textContent='0 / 0';
+  document.getElementById('pf'+n).style.width='0%';
+  const m={1:['ex1-container',Q1,1],2:['ex2-container',Q2,2],3:['ex3-container',Q3,3],5:['ex5-container',Q5,5]}[n];
+  buildMCQ(m[1],m[0],m[2]);
+}
+function initAllEx(){
+  if(exInited) return; exInited=true;
+  buildMCQ(Q1,'ex1-container',1);buildMCQ(Q2,'ex2-container',2);
+  buildMCQ(Q3,'ex3-container',3);buildMCQ(Q5,'ex5-container',5);
+  initMatch();
+}
+function initMatch(){
+  matchSel=null;matchScore=0;
+  document.getElementById('match-score').textContent='تطابق: 0 / 7';
+  document.getElementById('match-fb').textContent='';
+  document.getElementById('match-fb').style.cssText='';
+  const left=document.getElementById('match-left'),right=document.getElementById('match-right');
+  left.innerHTML='';right.innerHTML='';
+  [...matchData].sort(()=>Math.random()-.5).forEach(m=>{
+    const b=document.createElement('div');b.className='mitem';b.dataset.sifa=m.sifa;b.dataset.side='left';b.textContent=m.sifa;
+    b.addEventListener('click',matchClick);left.appendChild(b);
+  });
+  [...matchData].sort(()=>Math.random()-.5).forEach(m=>{
+    const b=document.createElement('div');b.className='mitem';b.dataset.sifa=m.sifa;b.dataset.side='right';b.textContent=m.desc;
+    b.addEventListener('click',matchClick);right.appendChild(b);
+  });
+}
+function matchClick(){
+  if(this.classList.contains('matched')) return;
+  if(!matchSel){
+    document.querySelectorAll('.mitem').forEach(m=>m.classList.remove('sel'));
+    this.classList.add('sel');matchSel=this;
+  } else {
+    if(this===matchSel){matchSel=null;this.classList.remove('sel');return;}
+    if(this.dataset.side===matchSel.dataset.side){matchSel.classList.remove('sel');this.classList.add('sel');matchSel=this;return;}
+    const a=matchSel,b=this;a.classList.remove('sel');
+    if(a.dataset.sifa===b.dataset.sifa){
+      a.classList.add('matched');b.classList.add('matched');matchScore++;
+      document.getElementById('match-score').textContent='تطابق: '+matchScore+' / 7';
+      if(matchScore===7){const fb=document.getElementById('match-fb');fb.style.cssText='background:#e8f5e9;color:#2D5A27;padding:.35rem .68rem;border-radius:6px;';fb.textContent='🏆 ممتاز! أتقنت جميع الصفات!';}
+    } else {
+      a.classList.add('wf');b.classList.add('wf');
+      setTimeout(()=>{a.classList.remove('wf');b.classList.remove('wf');},500);
+    }
+    matchSel=null;
+  }
+}
+</script>
+</body>
+</html>
