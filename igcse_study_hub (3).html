@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGCSE Gr.11 · Business & CS Study Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f6fa;
+  --white:#ffffff;
+  --card:#ffffff;
+  --ink:#1a1d2e;
+  --sub:#5a6080;
+  --border:#e2e5f0;
+  --biz:#f59e0b;   --biz-l:#fef3c7; --biz-d:#92400e;
+  --cs:#0ea5e9;    --cs-l:#e0f2fe;  --cs-d:#0c4a6e;
+  --pink:#ec4899;  --pink-l:#fce7f3;
+  --green:#10b981; --green-l:#d1fae5;
+  --violet:#8b5cf6;--violet-l:#ede9fe;
+  --orange:#f97316;--orange-l:#ffedd5;
+  --red:#ef4444;   --red-l:#fee2e2;
+  --radius:16px; --font:'Outfit',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);min-height:100vh}
+
+/* ══ HEADER ══ */
+header{
+  background:var(--white);
+  border-bottom:3px solid var(--border);
+  padding:0 48px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  position:relative;overflow:hidden;
+}
+header::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--biz),var(--pink),var(--cs),var(--green),var(--violet),var(--biz));
+  background-size:300%;animation:slide 5s linear infinite;
+}
+@keyframes slide{0%{background-position:0}100%{background-position:300%}}
+.h-left{padding:28px 0 22px}
+.logo{font-size:1.9rem;font-weight:900;letter-spacing:-1.5px;line-height:1;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.logo .biz{color:var(--biz)}
+.logo .sep{color:var(--border);font-weight:300}
+.logo .cs{color:var(--cs)}
+.logo-tag{font-size:.72rem;color:var(--sub);letter-spacing:2.5px;text-transform:uppercase;margin-top:6px}
+.h-right{display:flex;gap:12px;padding:22px 0;flex-wrap:wrap}
+.hbox{text-align:center;padding:14px 22px;background:var(--bg);border:2px solid var(--border);border-radius:14px;min-width:88px}
+.hbox .n{font-size:2rem;font-weight:900;line-height:1;letter-spacing:-1px}
+.hbox .n.gold{color:var(--biz)}
+.hbox .n.blue{color:var(--cs)}
+.hbox .n.green{color:var(--green)}
+.hbox .l{font-size:.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:1.5px;margin-top:3px}
+
+/* ══ NAV ══ */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(20px);
+  border-bottom:2px solid var(--border);
+  padding:12px 48px;display:flex;gap:8px;flex-wrap:wrap;
+}
+nav button{
+  font-family:var(--font);font-size:.83rem;font-weight:600;
+  padding:9px 20px;border-radius:30px;border:2px solid var(--border);
+  background:transparent;color:var(--sub);cursor:pointer;transition:all .18s;letter-spacing:.1px;
+}
+nav button:hover{color:var(--ink);border-color:#aab0cc;background:var(--bg)}
+nav button.active{border:none;color:#fff;font-weight:700}
+nav button.n-plan.active{background:linear-gradient(135deg,var(--violet),#6d28d9)}
+nav button.n-biz.active{background:linear-gradient(135deg,var(--biz),#d97706)}
+nav button.n-cs.active{background:linear-gradient(135deg,var(--cs),#0284c7)}
+nav button.n-quiz.active{background:linear-gradient(135deg,var(--pink),#db2777)}
+nav button.n-form.active{background:linear-gradient(135deg,var(--green),#059669)}
+nav button.n-map.active{background:linear-gradient(135deg,var(--orange),#ea580c)}
+nav button.n-prog.active{background:linear-gradient(135deg,#6366f1,#4338ca)}
+
+/* ══ MAIN ══ */
+main{max-width:1280px;margin:0 auto;padding:40px 32px 100px}
+.section{display:none;animation:up .3s ease both}
+.section.active{display:block}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.sec-title{font-size:1.85rem;font-weight:900;letter-spacing:-1px;margin-bottom:6px}
+.sec-sub{color:var(--sub);font-size:.87rem;margin-bottom:36px;line-height:1.6}
+
+/* ══ WEEK HEADERS ══ */
+.wk-hd{display:flex;align-items:center;gap:12px;margin:32px 0 16px;font-size:1rem;font-weight:700;color:var(--ink)}
+.wk-pill{font-size:.7rem;font-weight:800;padding:5px 14px;border-radius:30px;text-transform:uppercase;letter-spacing:.6px;color:#fff}
+.wk-pill.w1{background:linear-gradient(135deg,var(--pink),#db2777)}
+.wk-pill.w2{background:linear-gradient(135deg,var(--green),#059669)}
+
+/* ══ DAY CARDS ══ */
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.day-card{
+  background:var(--white);border:2px solid var(--border);border-radius:var(--radius);
+  padding:20px 22px;transition:transform .2s,box-shadow .2s,border-color .2s;
+  position:relative;overflow:hidden;
+}
+.day-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--biz),var(--cs))}
+.day-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.1);border-color:#aab0cc}
+.day-card.done{opacity:.45}
+.day-lbl{font-size:.72rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:12px;font-family:var(--mono)}
+.day-tasks{list-style:none}
+.day-tasks li{font-size:.85rem;padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:9px;line-height:1.5}
+.day-tasks li:last-child{border:none}
+.stag{font-size:.64rem;font-weight:800;padding:2px 8px;border-radius:6px;white-space:nowrap;letter-spacing:.3px;margin-top:1px;flex-shrink:0}
+.stag.b{background:var(--biz-l);color:var(--biz-d)}
+.stag.c{background:var(--cs-l);color:var(--cs-d)}
+.dchk{width:16px;height:16px;accent-color:var(--green);cursor:pointer;flex-shrink:0;margin-top:2px}
+
+/* ══ TOPIC CARDS ══ */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.tc{
+  background:var(--white);border:2px solid var(--border);border-radius:var(--radius);
+  cursor:pointer;transition:all .2s;overflow:hidden;
+}
+.tc:hover{box-shadow:0 10px 32px rgba(0,0,0,.1)}
+.tc.b:hover{border-color:var(--biz)}
+.tc.c:hover{border-color:var(--cs)}
+.tc-banner{padding:20px 22px 16px;position:relative;border-bottom:0}
+.tc-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.tc.b .tc-banner::before{background:linear-gradient(90deg,var(--biz),#fbbf24)}
+.tc.c .tc-banner::before{background:linear-gradient(90deg,var(--cs),#38bdf8)}
+.tc-toggle{position:absolute;top:16px;right:18px;font-size:1.3rem;color:var(--sub);transition:transform .25s;font-weight:300}
+.tc.open .tc-toggle{transform:rotate(45deg)}
+.tc-icon{font-size:2rem;margin-bottom:10px;display:block}
+.tc-title{font-size:1rem;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+.tc-desc{font-size:.79rem;color:var(--sub);line-height:1.55}
+.tc-body{display:none;padding:0 22px 22px;border-top:2px solid var(--border);margin-top:0}
+.tc.open .tc-body{display:block;animation:up .2s ease}
+.tc.open .tc-banner{border-bottom:2px solid var(--border)}
+
+/* KEY FACTS */
+.sub-lbl{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:1.3px;color:var(--sub);margin:18px 0 10px;font-family:var(--mono)}
+.kf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kf{border-radius:10px;padding:12px 14px;font-size:.79rem;line-height:1.55;border-left:4px solid}
+.kf.b-kf{background:var(--biz-l);border-color:var(--biz)}
+.kf.c-kf{background:var(--cs-l);border-color:var(--cs)}
+.kf strong{display:block;font-size:.71rem;font-weight:800;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.kf.b-kf strong{color:var(--biz-d)}
+.kf.c-kf strong{color:var(--cs-d)}
+.formula-box{background:#f0fdf4;border:2px solid #86efac;border-radius:10px;padding:10px 14px;font-family:var(--mono);font-size:.82rem;color:#166534;margin:6px 0;font-weight:500}
+.example-box{background:var(--cs-l);border:2px solid #7dd3fc;border-radius:10px;padding:11px 15px;font-size:.8rem;line-height:1.6;margin:8px 0;color:var(--cs-d)}
+.example-box::before{content:'📌 Example: ';font-weight:800;font-size:.72rem}
+.exam-tip{background:var(--pink-l);border:2px solid #f9a8d4;border-radius:10px;padding:11px 15px;font-size:.8rem;line-height:1.6;margin-top:12px;color:#831843}
+.exam-tip::before{content:'⚡ Exam Tip: ';font-weight:800;font-size:.72rem}
+
+/* ══ QUIZ ══ */
+.quiz-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:30px}
+.quiz-bar select{padding:11px 18px;border-radius:11px;border:2px solid var(--border);background:var(--white);color:var(--ink);font-family:var(--font);font-size:.85rem;cursor:pointer;font-weight:600}
+.q-btn{padding:11px 28px;border-radius:11px;border:none;background:linear-gradient(135deg,var(--pink),#db2777);color:#fff;font-family:var(--font);font-size:.9rem;font-weight:800;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(236,72,153,.35)}
+.q-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(236,72,153,.45)}
+.score-strip{display:flex;align-items:center;gap:18px;padding:18px 24px;background:var(--white);border:2px solid var(--border);border-radius:var(--radius);margin-bottom:24px}
+.score-strip .sn{font-size:2rem;font-weight:900;color:var(--green);letter-spacing:-1px}
+.score-strip .sl{font-size:.83rem;color:var(--sub)}
+.qcard{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:18px;max-width:820px;transition:border-color .2s}
+.qcard:hover{border-color:#aab0cc}
+.qcard .qn{font-size:.72rem;color:var(--sub);font-family:var(--mono);margin-bottom:12px;letter-spacing:1px}
+.qcard .qt{font-size:1rem;font-weight:700;margin-bottom:22px;line-height:1.65;color:var(--ink)}
+.opts{list-style:none;display:grid;gap:10px}
+.opts li button{width:100%;text-align:left;padding:13px 18px;border-radius:12px;border:2px solid var(--border);background:var(--bg);color:var(--ink);font-family:var(--font);font-size:.87rem;cursor:pointer;transition:all .15s;font-weight:500}
+.opts li button:hover:not(:disabled){border-color:var(--cs);color:var(--cs);background:var(--cs-l)}
+.opts li button.ok{border-color:var(--green);background:var(--green-l);color:#065f46;font-weight:700}
+.opts li button.no{border-color:var(--red);background:var(--red-l);color:#991b1b}
+.qexp{display:none;margin-top:16px;padding:14px 18px;border-radius:12px;background:var(--cs-l);border-left:4px solid var(--cs);font-size:.84rem;line-height:1.7;color:var(--cs-d)}
+.qexp.show{display:block;animation:up .2s ease}
+
+/* ══ FORMULAS ══ */
+.fref-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.fref{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:22px 24px;transition:all .2s}
+.fref:hover{border-color:var(--green);box-shadow:0 6px 24px rgba(16,185,129,.12)}
+.fref-title{font-size:.7rem;font-weight:800;color:var(--sub);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px;font-family:var(--mono)}
+.fref-formula{font-family:var(--mono);font-size:.92rem;color:#166534;padding:10px 14px;background:#f0fdf4;border:2px solid #86efac;border-radius:9px;margin-bottom:10px;font-weight:600}
+.fref-note{font-size:.79rem;color:var(--sub);line-height:1.55}
+
+/* ══ MIND MAP ══ */
+.mm-wrap{overflow-x:auto;border-radius:var(--radius);background:var(--white);border:2px solid var(--border);padding:24px}
+.mm-svg{min-width:1020px;width:100%}
+
+/* ══ PROGRESS ══ */
+.prog-hero{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:26px 30px;margin-bottom:28px}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.prog-title{font-size:1rem;font-weight:800;color:var(--ink)}
+.prog-pct{font-size:1.6rem;font-weight:900;color:var(--green)}
+.prog-track{height:14px;background:var(--border);border-radius:14px;overflow:hidden}
+.prog-fill{height:100%;border-radius:14px;background:linear-gradient(90deg,var(--green),var(--cs),#6366f1);transition:width .6s cubic-bezier(.4,0,.2,1)}
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:680px){.chk-grid{grid-template-columns:1fr}}
+.chk-block{background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:24px}
+.chk-block h3{font-size:.95rem;font-weight:900;margin-bottom:18px;display:flex;align-items:center;gap:10px;color:var(--ink)}
+.cbar{width:5px;height:22px;border-radius:4px;flex-shrink:0}
+.cbar.b{background:linear-gradient(180deg,var(--biz),#d97706)}
+.cbar.c{background:linear-gradient(180deg,var(--cs),#0284c7)}
+.cbar.a{background:linear-gradient(180deg,var(--pink),#db2777)}
+.ci{display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-bottom:1px solid var(--border);font-size:.84rem}
+.ci:last-child{border:none}
+.ci input{accent-color:var(--green);margin-top:2px;cursor:pointer;flex-shrink:0;width:16px;height:16px}
+.ci label{cursor:pointer;color:var(--ink);transition:all .2s;line-height:1.5}
+.ci input:checked+label{color:var(--sub);text-decoration:line-through}
+
+/* subject section banners */
+.subj-banner{
+  padding:24px 32px;border-radius:var(--radius);margin-bottom:32px;
+  display:flex;align-items:center;gap:20px;
+}
+.subj-banner.biz{background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #fbbf24}
+.subj-banner.cs{background:linear-gradient(135deg,#e0f2fe,#bae6fd);border:2px solid #38bdf8}
+.subj-banner .icon{font-size:2.5rem}
+.subj-banner .title{font-size:1.5rem;font-weight:900;letter-spacing:-1px}
+.subj-banner.biz .title{color:#92400e}
+.subj-banner.cs .title{color:#0c4a6e}
+.subj-banner .subtitle{font-size:.85rem;margin-top:4px;opacity:.75}
+
+@media(max-width:640px){header,nav,main{padding-left:16px;padding-right:16px}.sec-title{font-size:1.4rem}.kf-grid{grid-template-columns:1fr}.hbox .n{font-size:1.5rem}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="h-left">
+    <div class="logo">
+      <span class="biz">📊 Business</span>
+      <span class="sep">+</span>
+      <span class="cs">💻 Computer Science</span>
+    </div>
+    <div class="logo-tag">IGCSE · Grade 11 · 2-Week Intensive Study Hub</div>
+  </div>
+  <div class="h-right">
+    <div class="hbox"><div class="n gold" id="daysLeft">14</div><div class="l">Days Left</div></div>
+    <div class="hbox"><div class="n green" id="donePct">0%</div><div class="l">Complete</div></div>
+    <div class="hbox"><div class="n blue" id="quizBest">—</div><div class="l">Quiz Best</div></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <button class="n-plan active" onclick="show('plan',this)">📅 Study Plan</button>
+  <button class="n-biz" onclick="show('biz',this)">📊 Business</button>
+  <button class="n-cs" onclick="show('cs',this)">💻 Computer Science</button>
+  <button class="n-quiz" onclick="show('quiz',this)">🧠 Quiz Me</button>
+  <button class="n-form" onclick="show('formulas',this)">📐 Formulas</button>
+  <button class="n-map" onclick="show('mindmap',this)">🗺 Mind Map</button>
+  <button class="n-prog" onclick="show('progress',this)">✅ My Progress</button>
+</nav>
+
+<main>
+
+<!-- PLAN -->
+<div id="plan" class="section active">
+  <div class="sec-title">📅 2-Week Study Plan</div>
+  <div class="sec-sub">Tick each session when done · Week 1 = master all content · Week 2 = practise, papers and polish</div>
+  <div class="wk-hd"><div class="wk-pill w1">Week 1</div> Content Mastery</div>
+  <div class="plan-grid" id="grid1"></div>
+  <div class="wk-hd"><div class="wk-pill w2">Week 2</div> Practice & Final Revision</div>
+  <div class="plan-grid" id="grid2"></div>
+</div>
+
+<!-- BUSINESS -->
+<div id="biz" class="section">
+  <div class="subj-banner biz">
+    <div class="icon">📊</div>
+    <div>
+      <div class="title">Business Studies</div>
+      <div class="subtitle">6 topics · click any card to expand full notes, formulas & exam tips</div>
+    </div>
+  </div>
+  <div class="topic-grid" id="bizGrid"></div>
+</div>
+
+<!-- CS -->
+<div id="cs" class="section">
+  <div class="subj-banner cs">
+    <div class="icon">💻</div>
+    <div>
+      <div class="title">Computer Science</div>
+      <div class="subtitle">6 topics · click any card to expand full notes, worked examples & exam tips</div>
+    </div>
+  </div>
+  <div class="topic-grid" id="csGrid"></div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="section">
+  <div class="sec-title" style="color:var(--pink)">🧠 Quiz Mode</div>
+  <div class="sec-sub">20 questions · randomised every time · full explanation after each answer</div>
+  <div class="quiz-bar">
+    <select id="qfilt">
+      <option value="all">All Topics Mixed</option>
+      <option value="biz">Business Studies Only</option>
+      <option value="cs">Computer Science Only</option>
+    </select>
+    <button class="q-btn" onclick="startQuiz()">▶ Start New Quiz</button>
+  </div>
+  <div class="score-strip" id="scoreStrip" style="display:none">
+    <div class="sn" id="scoreNum">0/10</div>
+    <div class="sl">Score so far — keep going!</div>
+  </div>
+  <div id="quizArea"></div>
+</div>
+
+<!-- FORMULAS -->
+<div id="formulas" class="section">
+  <div class="sec-title" style="color:var(--green)">📐 Formula & Key Reference</div>
+  <div class="sec-sub">Every formula and ratio you need for both subjects — hover to highlight</div>
+  <div class="fref-grid" id="frefGrid"></div>
+</div>
+
+<!-- MIND MAP -->
+<div id="mindmap" class="section">
+  <div class="sec-title" style="color:var(--orange)">🗺 Visual Mind Map</div>
+  <div class="sec-sub">Both subjects at a glance — scroll horizontally if needed</div>
+  <div class="mm-wrap">
+    <svg class="mm-svg" viewBox="0 0 1040 640" xmlns="http://www.w3.org/2000/svg" font-family="'Outfit',sans-serif">
+      <defs>
+        <linearGradient id="gb" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
+        <linearGradient id="gc" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0ea5e9"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+        <linearGradient id="gp" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#db2777"/></linearGradient>
+      </defs>
+      <rect width="1040" height="640" fill="#f8faff" rx="14"/>
+      <!-- subtle grid -->
+      <pattern id="gr" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1" fill="rgba(100,116,180,.1)"/>
+      </pattern>
+      <rect width="1040" height="640" fill="url(#gr)" rx="14"/>
+
+      <!-- Centre pill -->
+      <rect x="410" y="276" rx="30" ry="30" width="220" height="68" fill="url(#gp)"/>
+      <text x="520" y="307" text-anchor="middle" fill="#fff" font-weight="900" font-size="16" letter-spacing="-.5">IGCSE Grade 11</text>
+      <text x="520" y="328" text-anchor="middle" fill="rgba(255,255,255,.85)" font-size="12">Business + Computer Science</text>
+
+      <!-- BIZ connector -->
+      <line x1="410" y1="305" x2="268" y2="222" stroke="url(#gb)" stroke-width="3" opacity=".8"/>
+      <!-- BIZ node -->
+      <rect x="158" y="200" rx="12" ry="12" width="180" height="44" fill="#fef3c7" stroke="#f59e0b" stroke-width="2.5"/>
+      <text x="248" y="227" text-anchor="middle" fill="#92400e" font-weight="900" font-size="14">📊 Business Studies</text>
+
+      <!-- Biz leaves -->
+      <line x1="248" y1="200" x2="172" y2="142" stroke="#f59e0b" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="50" y="122" rx="9" ry="9" width="190" height="32" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="145" y="142" text-anchor="middle" fill="#92400e" font-size="12" font-weight="600">Business Activity &amp; Types</text>
+
+      <line x1="248" y1="200" x2="112" y2="175" stroke="#f59e0b" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="8" y="157" rx="9" ry="9" width="178" height="32" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="97" y="177" text-anchor="middle" fill="#92400e" font-size="12" font-weight="600">People &amp; Organisations</text>
+
+      <line x1="248" y1="244" x2="118" y2="270" stroke="#f59e0b" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="8" y="252" rx="9" ry="9" width="128" height="32" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="72" y="272" text-anchor="middle" fill="#92400e" font-size="12" font-weight="600">Marketing</text>
+
+      <line x1="248" y1="244" x2="110" y2="326" stroke="#f59e0b" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="6" y="308" rx="9" ry="9" width="196" height="32" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="104" y="328" text-anchor="middle" fill="#92400e" font-size="12" font-weight="600">Operations Management</text>
+
+      <line x1="248" y1="244" x2="148" y2="382" stroke="#f59e0b" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="24" y="364" rx="9" ry="9" width="188" height="32" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="118" y="384" text-anchor="middle" fill="#92400e" font-size="12" font-weight="600">Finance &amp; Accounting</text>
+
+      <line x1="248" y1="244" x2="196" y2="437" stroke="#f59e0b" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="62" y="419" rx="9" ry="9" width="182" height="32" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="153" y="439" text-anchor="middle" fill="#92400e" font-size="12" font-weight="600">External Influences</text>
+
+      <!-- CS connector -->
+      <line x1="630" y1="305" x2="772" y2="222" stroke="url(#gc)" stroke-width="3" opacity=".8"/>
+      <!-- CS node -->
+      <rect x="702" y="200" rx="12" ry="12" width="180" height="44" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2.5"/>
+      <text x="792" y="227" text-anchor="middle" fill="#0c4a6e" font-weight="900" font-size="14">💻 Computer Science</text>
+
+      <!-- CS leaves -->
+      <line x1="792" y1="200" x2="866" y2="142" stroke="#0ea5e9" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="800" y="122" rx="9" ry="9" width="182" height="32" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+      <text x="891" y="142" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600">Data Representation</text>
+
+      <line x1="792" y1="200" x2="908" y2="175" stroke="#0ea5e9" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="854" y="157" rx="9" ry="9" width="178" height="32" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+      <text x="943" y="177" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600">Algorithms &amp; Flowcharts</text>
+
+      <line x1="792" y1="244" x2="906" y2="270" stroke="#0ea5e9" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="840" y="252" rx="9" ry="9" width="188" height="32" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+      <text x="934" y="272" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600">Programming Concepts</text>
+
+      <line x1="792" y1="244" x2="900" y2="326" stroke="#0ea5e9" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="834" y="308" rx="9" ry="9" width="190" height="32" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+      <text x="929" y="328" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600">Networking &amp; Internet</text>
+
+      <line x1="792" y1="244" x2="856" y2="382" stroke="#0ea5e9" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="790" y="364" rx="9" ry="9" width="172" height="32" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+      <text x="876" y="384" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600">Hardware &amp; Software</text>
+
+      <line x1="792" y1="244" x2="804" y2="437" stroke="#0ea5e9" stroke-width="1.8" opacity=".6" stroke-dasharray="5 3"/>
+      <rect x="720" y="419" rx="9" ry="9" width="168" height="32" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+      <text x="804" y="439" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="600">Security &amp; Ethics</text>
+
+      <!-- Exam tip bottom -->
+      <line x1="520" y1="344" x2="520" y2="502" stroke="#ec4899" stroke-width="2" opacity=".5" stroke-dasharray="6 4"/>
+      <rect x="400" y="502" rx="22" ry="22" width="240" height="50" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+      <text x="520" y="524" text-anchor="middle" fill="#831843" font-weight="900" font-size="13">📋 Exam Day Strategy</text>
+      <text x="520" y="542" text-anchor="middle" fill="#be185d" font-size="11">Read · Plan Time · Answer · Review</text>
+    </svg>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div id="progress" class="section">
+  <div class="sec-title" style="color:#6366f1">✅ My Progress</div>
+  <div class="sec-sub">Tick off every topic and task — progress is saved automatically in your browser</div>
+  <div class="prog-hero">
+    <div class="prog-top"><div class="prog-title">Overall Completion</div><div class="prog-pct" id="pctTxt">0%</div></div>
+    <div class="prog-track"><div class="prog-fill" id="pctFill" style="width:0%"></div></div>
+  </div>
+  <div class="chk-grid" id="chkGrid"></div>
+</div>
+
+</main>
+
+<script>
+/* ══════════════════════════════════════
+   BUSINESS DATA
+══════════════════════════════════════ */
+const BIZ = [
+ {icon:'🏢',title:'Business Activity & Types',desc:'Sectors, business types, stakeholders, objectives, opportunity cost',
+  kf:[
+   {h:'Needs vs Wants',b:'Needs = essential (food, shelter, water). Wants = desirable extras. Scarcity = limited resources → choices must be made → opportunity cost arises.'},
+   {h:'3 Sectors',b:'Primary (extract raw materials — farming, mining). Secondary (manufacture — factories). Tertiary (services — retail, banking, tourism). Most economies = mixed.'},
+   {h:'Business Types',b:'Sole trader (1 owner, unlimited liability). Partnership (2–20, shared responsibility). Private Ltd (Ltd, limited liability, shares not public). Public Ltd (Plc, shares on stock exchange).'},
+   {h:'Stakeholders',b:'Internal: owners, employees, managers. External: customers, suppliers, government, community. Interests CONFLICT — e.g. owners want max profit; workers want high wages + job security.'},
+   {h:'Business Objectives',b:'Survival (new/struggling firms), Profit maximisation (mature private firms), Growth (ambitious firms), Market share, Social responsibility (ethical firms). Objectives change over time.'},
+   {h:'Franchise & Joint Venture',b:'Franchise: franchisee pays to use franchisor\'s brand + model. Pros: proven concept, support. Cons: royalty fees, less control. Joint venture: two firms share resources for a project.'},
+  ],
+  formulas:['Profit = Revenue − Total Costs','Market Share (%) = (Firm Sales ÷ Total Market Sales) × 100','Opportunity Cost = the next best alternative sacrificed'],
+  tips:'Questions ask you to APPLY to the case study. Always link your point to the specific business, not just general theory.',
+  extra:'Opportunity cost: a business spends $50,000 on new machinery — the opportunity cost is the $50,000 it could NOT spend on staff training or marketing.'},
+
+ {icon:'👥',title:'People in Organisations',desc:'Motivation theories, leadership styles, structure, communication, HR',
+  kf:[
+   {h:'Maslow\'s Hierarchy',b:'Physiological (wages cover food/shelter) → Safety (job security) → Social (teamwork, belonging) → Esteem (recognition, responsibility) → Self-Actualisation (challenging work, creativity). Satisfy lower needs first.'},
+   {h:'Herzberg\'s Two-Factor',b:'Hygiene factors (pay, conditions, policies): removing them causes dissatisfaction but adding them doesn\'t motivate. Motivators (achievement, recognition, responsibility): truly motivate employees. Solution: job enrichment.'},
+   {h:'Taylor (Scientific Mgmt)',b:'Workers are motivated ONLY by money. Break tasks into small repetitive steps. Time-and-motion studies to find the "one best way." Piece-rate pay. Criticism: boring, ignores other needs, leads to industrial disputes.'},
+   {h:'Leadership Styles',b:'Autocratic: manager decides alone — fast decisions, suits crises/unskilled staff, but demotivates. Democratic: team consulted — better motivation and ideas, but slow. Laissez-faire: team decide — suits creative professionals, risky with unskilled staff.'},
+   {h:'Organisation Structure',b:'Hierarchy: chain of command from top to bottom. Span of control = number of direct reports. Tall structure: narrow span, many levels, slow communication. Flat structure: wide span, few levels, faster communication.'},
+   {h:'Communication',b:'Formal (emails, reports, memos) vs informal (conversations). One-way (instructions) vs two-way (discussions). Barriers: jargon, overload, noise, cultural differences. Overcome: plain language, two-way channels, feedback loops.'},
+  ],
+  formulas:['Labour Turnover (%) = (No. of Workers Leaving ÷ Avg Workforce) × 100','Absenteeism (%) = (Days Lost ÷ Total Possible Working Days) × 100'],
+  tips:'When evaluating leadership styles, always consider the context — what type of worker? What type of task? An autocratic style suits a fire drill; democratic suits a product development team.',
+  extra:'Delegation = passing authority to a subordinate. Benefits: frees up manager time, motivates staff, develops skills. Risk: lose control if staff are not trained/trusted.'},
+
+ {icon:'📣',title:'Marketing',desc:'4Ps, market research, segmentation, product life cycle, pricing, promotion',
+  kf:[
+   {h:'Market Research',b:'Primary: surveys, interviews, observations, focus groups, trials. Advantages: specific, current, confidential. Disadvantages: expensive, time-consuming, small sample may be biased. Secondary: internet, trade journals, government data. Cheaper but may be outdated.'},
+   {h:'Segmentation',b:'Demographic: age, gender, income, occupation. Geographic: region, country. Psychographic: lifestyle, values, interests. Behavioural: usage rate, brand loyalty, purchase occasion. Segmentation allows targeted marketing → less wastage.'},
+   {h:'Product Life Cycle',b:'Development (high cost, no sales) → Introduction (slow growth, high promotion) → Growth (rising sales, falling unit costs) → Maturity (sales peak, competitive market) → Decline (falling sales). Extension strategies: new markets, new uses, updated packaging, price cuts.'},
+   {h:'Pricing Strategies',b:'Penetration: low launch price to gain market share, then raise. Price skimming: high launch price for innovative/premium products (tech). Competitive: match rivals. Cost-plus: add profit margin to unit cost. Psychological: £9.99 instead of £10.'},
+   {h:'Promotion Mix',b:'Advertising (TV, digital, outdoor — reaches mass market). Sales promotion (BOGOF, coupons, free samples — short-term). Public relations (press releases, sponsorship — builds image). Personal selling (direct contact — expensive but effective for B2B). Direct marketing (email, leaflets — targeted).'},
+   {h:'Place / Distribution',b:'Direct: producer → consumer (online, factory shops). Indirect: producer → retailer → consumer (short). Producer → wholesaler → retailer → consumer (long). E-commerce advantages: 24/7 sales, global reach, lower overheads.'},
+  ],
+  formulas:['Market Growth (%) = ((New Market Size − Old) ÷ Old) × 100','Price Elasticity of Demand = % Change in Quantity ÷ % Change in Price'],
+  tips:'The 4Ps must be CONSISTENT. A luxury brand needs premium pricing, selective distribution (not supermarkets), and aspirational advertising. Mixing these signals confuses customers.',
+  extra:'USP (Unique Selling Point) = the feature that makes a product different. E.g. "world\'s thinnest laptop" or "only gluten-free bakery in the city." Essential for positioning and justifying a premium price.'},
+
+ {icon:'⚙️',title:'Operations Management',desc:'Production methods, lean production, quality, inventory, capacity, economies of scale',
+  kf:[
+   {h:'Production Methods',b:'Job: unique, one-off items (wedding dress, bespoke furniture). High skill, very expensive, personalised. Batch: groups of identical items made together (bread types, school uniforms). Flow: continuous production line (cars, canned drinks). Automated, low unit cost, needs large demand. Cell: small teams make complete sub-sections.'},
+   {h:'Lean Production',b:'JIT (Just-In-Time): materials ordered and delivered only when needed. Zero buffer stock. Cuts holding and storage costs but requires very reliable suppliers — production stops if delivery fails. Kaizen: continuous improvement via small daily changes by all employees. Empowers workers.'},
+   {h:'Quality Control vs Assurance',b:'Quality Control: inspect finished goods AFTER production → finds defects but wastes materials already used. Quality Assurance: check at EACH production stage → prevents defects, reduces waste. TQM (Total Quality Management): quality is everyone\'s responsibility, culture of zero defects.'},
+   {h:'Inventory Management',b:'Buffer stock = minimum stock level (safety cushion). Reorder level = stock level that triggers a new order. Lead time = delay between ordering and receiving. Maximum stock = most stock held (limited by storage cost). JIT = no buffer stock (risky).'},
+   {h:'Capacity Utilisation',b:'CU = (Actual Output ÷ Maximum Capacity) × 100. 100% = fully stretched — no room for unexpected orders, risky. <100% = spare capacity — can take on extra orders but assets under-used. Methods to increase CU: more marketing, reduce prices, subcontract, hire equipment out.'},
+   {h:'Economies of Scale',b:'Internal: purchasing (bulk discounts), technical (bigger/more efficient machines), financial (lower interest rates), managerial (specialists). External: pool of skilled labour, specialist suppliers nearby. Diseconomies: poor communication, coordination problems, demotivated workers in large organisations.'},
+  ],
+  formulas:['Capacity Utilisation (%) = (Actual Output ÷ Maximum Capacity) × 100','Unit Cost = Total Cost ÷ Number of Units Produced'],
+  tips:'JIT answer structure: state the benefit (↓ storage costs, ↓ wastage) AND the risk (stops production if supplier fails). Always give BOTH sides for evaluation marks.',
+  extra:'Labour-intensive: uses more workers relative to machines (e.g. picking strawberries by hand). Cheaper where wages are low. Capital-intensive: uses more machinery (e.g. car assembly). Higher quality consistency, lower long-run unit costs, suited to large volumes.'},
+
+ {icon:'💰',title:'Finance & Accounting',desc:'Cash flow, income statement, balance sheet, ratios, break-even, sources of finance',
+  kf:[
+   {h:'Cash Flow',b:'Cash inflows: sales revenue, loans, share issue, sale of assets. Cash outflows: wages, rent, raw materials, loan repayments. Net cash flow = inflows − outflows. Closing balance = opening balance + net cash flow. Problem: negative closing balance. Solutions: overdraft, reduce costs, delay payments, speed up receivables, sale and leaseback.'},
+   {h:'Income Statement',b:'Revenue − Cost of Sales = Gross Profit. Gross Profit − Operating Expenses = Operating/Net Profit. Net profit is then taxed → retained profit (kept in business) or dividends (paid to shareholders). Retained profit is an internal source of finance.'},
+   {h:'Balance Sheet',b:'Non-current assets (property, machinery, vehicles) + Current assets (inventory, receivables, cash) = Total Assets. Non-current liabilities (long-term loans) + Current liabilities (payables, bank overdraft) + Equity (share capital + retained profit) = Total Liabilities & Equity. Assets always = Liabilities + Equity.'},
+   {h:'Financial Ratios',b:'Gross Profit Margin (%) = (GP ÷ Revenue) × 100. Net Profit Margin (%) = (NP ÷ Revenue) × 100. ROCE (%) = (Net Profit ÷ Capital Employed) × 100. Liquid ratio (current ratio) = Current Assets ÷ Current Liabilities. Ideal ≈ 2:1.'},
+   {h:'Break-Even Analysis',b:'Contribution per unit = Selling Price − Variable Cost per unit. BEP = Fixed Costs ÷ Contribution per unit. Margin of Safety = Actual Output − BEP Output. Charts show: Fixed cost (horizontal), Total cost (sloped up), Revenue (steeper slope up). Profit = area between Revenue and TC above BEP.'},
+   {h:'Sources of Finance',b:'Internal (no interest cost): retained profit, sale of assets, owners\' savings, working capital management. External short-term: overdraft, trade credit, debt factoring. External long-term: bank loan, mortgage, debentures, venture capital, share issue (Plc only), leasing.'},
+  ],
+  formulas:[
+   'Gross Profit = Revenue − Cost of Sales',
+   'Net Profit = Gross Profit − Expenses',
+   'Gross Profit Margin (%) = (Gross Profit ÷ Revenue) × 100',
+   'Net Profit Margin (%) = (Net Profit ÷ Revenue) × 100',
+   'ROCE (%) = (Net Profit ÷ Capital Employed) × 100',
+   'BEP = Fixed Costs ÷ Contribution per Unit',
+   'Contribution per Unit = Selling Price − Variable Cost per Unit',
+   'Margin of Safety = Actual Output − Break-Even Output',
+  ],
+  tips:'Always show ALL working in calculations — you get method marks even if the final answer is wrong. State units (e.g. "200 units" not just "200").',
+  extra:'Gearing = (Long-term Liabilities ÷ Capital Employed) × 100. High gearing (>50%) = high debt burden, risky if interest rates rise. Low gearing = financed more by equity, safer. Bank may refuse to lend to highly geared businesses.'},
+
+ {icon:'🌍',title:'External Influences',desc:'Business cycle, inflation, interest rates, government policy, legal framework, ethics, globalisation',
+  kf:[
+   {h:'Business Cycle',b:'Boom: high consumer spending, low unemployment, inflation rises, businesses expand. Recession (2+ quarters of falling GDP): demand falls, unemployment rises, businesses cut costs, some fail. Recovery: gradual improvement. Slump: prolonged severe recession.'},
+   {h:'Inflation',b:'Rising general price level. Causes for business: higher raw material costs, workers demand higher wages (wage-price spiral), interest rate rises to control inflation → higher borrowing costs. Also: planning is harder, international competitiveness falls if inflation is higher than in other countries.'},
+   {h:'Interest Rates',b:'Rise in interest rates → more expensive to borrow → businesses invest less → consumers spend less on credit → demand falls. Fall in rates → cheaper borrowing → more investment and consumer spending → demand rises. Particularly affects highly geared businesses and house buyers.'},
+   {h:'Government Policy',b:'Fiscal: increase tax (reduce spending/demand) or decrease tax. Increase govt spending (e.g. infrastructure). Monetary: change interest rates or money supply. Regulations: minimum wage, consumer protection, health and safety, environmental laws. Tariffs and subsidies affect international trade.'},
+   {h:'Legal Constraints',b:'Employment law: right to written contract, national minimum wage, notice periods, anti-discrimination, health and safety at work. Consumer law: goods must be as described, fit for purpose, of satisfactory quality (Consumer Rights Act). Data protection limits how personal data can be used.'},
+   {h:'Ethics, CSR & Globalisation',b:'CSR: fair wages, sustainable sourcing, reducing carbon footprint, supporting community. May increase costs but improve brand reputation and attract talent. Globalisation: access to new markets and cheaper inputs but increased competition, currency risk, and cultural challenges. Exchange rates: SPICED mnemonic.'},
+  ],
+  formulas:['SPICED: Strong Pound → Imports Cheap, Exports Dear (↓export demand, ↑cost of imports falls)','Real GDP Growth = Nominal GDP Growth − Inflation Rate'],
+  tips:'Exchange rates: if a currency strengthens, exports become more expensive abroad (demand falls), imports become cheaper (firm\'s costs fall). Work through BOTH effects in your answer.',
+  extra:'Pressure groups: can affect businesses through boycotts, protests, negative publicity or lobbying government for new legislation. Businesses respond to protect their reputation, even if not legally required to do so.'},
+];
+
+/* ══════════════════════════════════════
+   CS DATA
+══════════════════════════════════════ */
+const CS = [
+ {icon:'💾',title:'Data Representation',desc:'Binary, hexadecimal, two\'s complement, ASCII/Unicode, images, sound, compression',
+  kf:[
+   {h:'Number Systems',b:'Binary (base 2: digits 0,1). Denary/Decimal (base 10: digits 0–9). Hexadecimal (base 16: digits 0–9 then A=10, B=11, C=12, D=13, E=14, F=15). 1 hex digit = 4 binary bits (nibble). Hex is compact — programmers use it because it\'s easier to read than long binary strings.'},
+   {h:'Binary Conversions',b:'Place values: 128 · 64 · 32 · 16 · 8 · 4 · 2 · 1. Example 10110101: 128+0+32+16+0+4+0+1 = 181. To convert denary→binary: divide by 2 repeatedly, read remainders upward. Binary→Hex: split into groups of 4 from right. E.g. 11101010 → 1110=E, 1010=A → EA.'},
+   {h:"Two's Complement",b:'Represents negative numbers in binary. To find −n: write +n in binary, flip ALL bits (one\'s complement), then add 1. Example: −6 in 8 bits. +6=00000110 → flip=11111001 → +1=11111010. MSB=1 always means the number is negative. Range: −128 to +127 in 8 bits.'},
+   {h:'Text Encoding',b:'ASCII: 7 bits, 128 characters (A=65, a=97, 0=48). Extended ASCII: 8 bits, 256 chars. Unicode: up to 32 bits, covers ALL world languages, symbols, emoji. UTF-8 is most common Unicode encoding. Unicode is needed for globalisation of software.'},
+   {h:'Images',b:'Stored as a grid of pixels. Each pixel stores a colour value. File size (bits) = width × height × colour depth. Colour depth 1 = black/white, 8 = 256 colours, 24 = ~16.7M colours (true colour). Metadata: image dimensions, colour depth, date taken. Higher resolution/depth = better quality but larger file.'},
+   {h:'Sound',b:'Analogue sound → ADC (Analogue to Digital Converter) → digital samples. File size (bits) = sample rate (Hz) × bit depth (bits per sample) × duration (seconds). Higher sample rate (e.g. 44,100 Hz) + higher bit depth (e.g. 16 bit) = better quality but much larger file.'},
+  ],
+  formulas:['Image file size (bits) = Width (px) × Height (px) × Colour Depth (bits)','Sound file size (bits) = Sample Rate (Hz) × Bit Depth × Duration (s)','÷ 8 for bytes · ÷ 1024 for KB · ÷ 1024 for MB'],
+  tips:'Show ALL working in conversion questions — place values written out = method marks. Common error: forgetting to divide bits by 8 to get bytes.',
+  extra:'Compression: Lossless (PNG, ZIP, FLAC) — no data lost, original perfectly restored. Run-length encoding example: AAABBBCC → 3A3B2C. Lossy (JPEG, MP3, MP4) — some data permanently discarded, smaller file but lower quality. Cannot reverse lossy compression.'},
+
+ {icon:'🔄',title:'Algorithms & Problem Solving',desc:'Pseudocode, flowcharts, searching, sorting, trace tables, computational thinking',
+  kf:[
+   {h:'Flowchart Symbols',b:'Oval/rounded rectangle = Start / End (Terminator). Rectangle = Process (e.g. x ← x + 1). Diamond = Decision (Yes/No branch, e.g. "Is x > 5?"). Parallelogram = Input or Output. Arrow = direction of flow. Folded rectangle = Document. Small circle = Connector/Off-page reference.'},
+   {h:'Cambridge Pseudocode',b:'Assignment: x ← 5. Input: INPUT name. Output: OUTPUT "Hello", name. Selection: IF x > 10 THEN … ELSE … ENDIF. CASE OF grade: "A": … ENDCASE. Count loop: FOR i ← 1 TO 10 … NEXT i. Condition: WHILE x > 0 DO … ENDWHILE. Post-test: REPEAT … UNTIL x = 0.'},
+   {h:'Linear vs Binary Search',b:'Linear: check each element one by one left to right. Works on unsorted lists. Best case O(1) (first element). Worst case O(n) (last or not found). Simple to code. Binary: list MUST be sorted. Find midpoint, compare, discard half. Repeat. Best O(1), worst O(log₂n). For 1024 items: max 10 steps. Much faster for large sorted lists.'},
+   {h:'Bubble Sort',b:'Pass through list, compare adjacent pairs, swap if out of order. Repeat passes until no swaps occur. Use a flag (swapped ← FALSE) to detect when list is sorted. Example pass 1 on [5,3,8,1]: compare 5&3→swap→[3,5,8,1], 5&8→no swap, 8&1→swap→[3,5,1,8]. Continue until sorted. Worst case: n−1 passes.'},
+   {h:'Computational Thinking',b:'Decomposition: break a big problem into smaller, manageable sub-problems (e.g. "build a game" → input handling, display, scoring, AI). Abstraction: remove unnecessary detail, keep only what matters (e.g. a map doesn\'t show every blade of grass). Pattern recognition: spot similarities to reuse solutions.'},
+   {h:'Trace Tables',b:'Create a column for EVERY variable and the output. Update each column after EVERY line of code executes. Show the value immediately after assignment — not before. Trace tables mark step-by-step — even if your final answer is wrong, correct intermediate steps earn marks.'},
+  ],
+  formulas:['Binary search max steps = log₂(n) e.g. 1024 items → max 10 steps','Bubble sort worst case comparisons = n×(n−1)÷2'],
+  tips:'Trace table exam tip: read the code ONE LINE at a time. Update only the variables that change on that line. Don\'t update all variables at once — common mistake that loses all marks.',
+  extra:'Merge sort: recursively split list in half until single elements, then merge sorted halves. Time complexity O(n log n) — faster than bubble sort for large lists but uses more memory. You may be asked to describe or trace merge sort steps in the exam.'},
+
+ {icon:'⌨️',title:'Programming Concepts',desc:'Variables, data types, selection, iteration, procedures, functions, arrays, string handling, validation',
+  kf:[
+   {h:'Data Types',b:'INTEGER: whole numbers, positive or negative (5, −3, 0). REAL/FLOAT: decimal numbers (3.14, −0.5). CHAR: single character (\'A\', \'3\'). STRING: sequence of characters ("Hello World"). BOOLEAN: TRUE or FALSE only. ARRAY: fixed-size collection of elements of the same type. Use the correct type — storing "25" as string means you can\'t do arithmetic.'},
+   {h:'Variables & Constants',b:'Variable: named memory location whose value can change during execution. DECLARE age : INTEGER. age ← 25. Constant: value set once, cannot change. CONSTANT MAX_SIZE ← 100. Why use constants? Easier to update (change in one place), clearer code intent, prevents accidental changes. Always use meaningful names.'},
+   {h:'Selection',b:'IF condition THEN statements ELSE statements ENDIF. Nested IF: IF inside another IF. CASE OF variable: value1: statement; value2: statement; OTHERWISE: statement. ENDCASE. Use CASE when testing one variable against multiple specific values — cleaner than many nested IFs. Comparison operators: =, <>, <, >, <=, >=.'},
+   {h:'Iteration (Loops)',b:'FOR i ← 1 TO 10: executes EXACTLY 10 times. Count-controlled. Best when you know how many iterations. WHILE condition DO…ENDWHILE: condition checked BEFORE body. May never execute if condition is false initially. REPEAT…UNTIL condition: condition checked AFTER body. Always executes at least once. Best when you need at least one execution (e.g. input validation).'},
+   {h:'Procedures & Functions',b:'PROCEDURE name(param: TYPE): executes code, returns NOTHING. Call: CALL greet("Ahmed"). FUNCTION name(param: TYPE) RETURNS TYPE: must return a value using RETURN. Call: result ← square(5). Why use them? Avoid repeating code (DRY principle), easier to test and debug, makes main program readable. Parameters pass values IN; RETURN passes value OUT.'},
+   {h:'Arrays & Strings',b:'1D array: DECLARE scores : ARRAY[0:4] OF INTEGER (5 elements, index 0–4). Access: scores[2] ← 95. 2D array: DECLARE grid : ARRAY[0:2,0:2] OF INTEGER. Access: grid[1][2]. String operations: LENGTH("hello")=5. SUBSTRING("hello",2,3)="ell" (start 2, length 3). UCASE("hello")="HELLO". String concatenation: firstName & " " & lastName.'},
+  ],
+  formulas:['FOR i ← start TO end STEP step (default step is 1)','SUBSTRING(string, startPos, length) — check if 0-indexed or 1-indexed in the question'],
+  tips:'In code-writing questions: declare all variables first, use correct pseudocode syntax, make sure every loop has a valid exit condition, and test your code with a trace table to check it works.',
+  extra:'Validation vs Verification: Validation = check data is REASONABLE (range check: 1–100, type check: must be integer, presence check: cannot be empty, format check: DD/MM/YYYY). Verification = check data matches what was intended (double-entry: type twice, visual check: compare with original document).'},
+
+ {icon:'🌐',title:'Networking & The Internet',desc:'LAN/WAN, topologies, hardware, protocols, TCP/IP, DNS, cloud, security',
+  kf:[
+   {h:'LAN vs WAN',b:'LAN (Local Area Network): single site (school, office), organisation owns the hardware, high speed, low cost. WAN (Wide Area Network): spans multiple sites or countries, uses public infrastructure (ISP leased lines, internet), slower than LAN, used by businesses with multiple offices. The Internet = the world\'s largest WAN, using TCP/IP protocols.'},
+   {h:'Network Topologies',b:'Bus: all devices on one shared cable. Cheap, but data collisions, single break stops all. Star: all devices connect to central switch/hub. Fast, easy to add devices, but switch is single point of failure. Mesh: every device connects to every other. Extremely resilient, but expensive (n(n−1)/2 connections). Ring: data travels in one direction around a loop.'},
+   {h:'Network Hardware',b:'Router: connects different networks together, routes packets using IP addresses, connects LAN to internet. Switch: connects devices on the SAME LAN, sends data only to the correct device (unlike hub). Hub: broadcasts to ALL devices — outdated, causes congestion. NIC: network interface card in every device. WAP: wireless access point broadcasts Wi-Fi signal.'},
+   {h:'TCP/IP & Protocols',b:'Protocol = agreed set of rules. TCP/IP model: Application layer (HTTP, HTTPS, FTP, DNS, SMTP), Transport layer (TCP — reliable, UDP — fast but unreliable), Internet layer (IP addressing, packet routing), Network Access layer (physical transmission). Packet switching: data broken into packets, each travels independently, reassembled at destination.'},
+   {h:'Internet Services',b:'DNS: translates domain names (www.google.com) → IP addresses (142.250.74.46). URL structure: protocol://domain.tld/path?query. HTTP (unencrypted). HTTPS (encrypted with SSL/TLS). HTML: webpage structure. CSS: styling. JavaScript: interactivity. Cloud: store/process data on remote servers (e.g. Google Drive, AWS). VPN: encrypts connection, hides IP address.'},
+   {h:'Cloud Computing',b:'Benefits: access from anywhere (any device, any location), scalable (pay for what you use), no hardware maintenance, automatic backups, software always up to date, enables remote working. Risks: internet dependency (no connection = no access), data privacy concerns (third party holds your data), security risks, potential vendor lock-in, ongoing subscription costs.'},
+  ],
+  formulas:['Bandwidth = maximum data transfer rate (bits per second, Mbps, Gbps)','Latency = time delay between sending and receiving data (milliseconds, ms)'],
+  tips:'Topology selection: bus = cheapest; star = most common and practical; mesh = most resilient. Always justify your choice by linking to the scenario\'s specific requirements (cost, resilience, size).',
+  extra:'Firewall: hardware or software that filters network traffic based on rules. Can block by IP address, port number, or protocol. Stateful firewall also tracks connection state. Proxy server: acts as intermediary between user and internet — caches web pages, filters content, hides internal IP addresses.'},
+
+ {icon:'🖥️',title:'Hardware & Software',desc:'CPU architecture, registers, memory hierarchy, storage, I/O devices, OS, software types',
+  kf:[
+   {h:'CPU Components',b:'ALU (Arithmetic Logic Unit): performs arithmetic (+−×÷), logical (AND/OR/NOT), and comparison operations. Results stored in ACC. CU (Control Unit): directs all CPU operations, manages the fetch-decode-execute cycle, sends control signals, does NOT process data. Registers: ultra-fast on-chip storage (PC=program counter, MAR=memory address, MDR=memory data, ACC=accumulator, CIR=current instruction). Cache: faster than RAM, stores frequently used data.'},
+   {h:'Fetch-Decode-Execute',b:'FETCH: address in PC copied to MAR → instruction fetched from RAM to MDR → copied to CIR → PC incremented (ready for next instruction). DECODE: CU interprets the instruction in CIR → determines what operation and operand. EXECUTE: ALU/other units perform the operation, result stored in ACC. Cycle repeats continuously.'},
+   {h:'Memory Hierarchy',b:'Registers (fastest, smallest, most expensive — on CPU). Cache (very fast, small — L1/L2/L3 on/near CPU). RAM (fast, volatile, loses contents on power off — holds current programs and data). Secondary storage (slow, non-volatile, holds data permanently). Virtual memory: uses part of hard disk as overflow RAM — much slower, causes "paging."'},
+   {h:'Storage Types',b:'HDD (Hard Disk Drive): magnetic, spinning platters, cheap per GB, high capacity, mechanical = slower and fragile. SSD (Solid State Drive): flash memory chips, no moving parts, fast, silent, durable, expensive per GB, uses less power. Optical (CD/DVD/Blu-ray): laser-read, portable, cheap, slow. USB flash: solid-state, portable, convenient but limited capacity and vulnerable to loss.'},
+   {h:'Operating System Functions',b:'Memory management: allocates RAM to programs, manages virtual memory. Process/CPU management: multitasking via time-slicing (rapidly switching between processes). File management: hierarchical folder structure, read/write permissions. Device management: loads device drivers for hardware communication. User interface: CLI (Command Line) — powerful but complex; GUI (Graphical) — easy but uses more memory. Security: user login, access controls.'},
+   {h:'Software Types',b:'System software: Operating System (manages hardware/resources), Utility programs (anti-malware, disk defragmenter, compression, backup), Device drivers (allow OS to communicate with specific hardware). Application software: general-purpose (word processor, spreadsheet), special-purpose (accounting software, hospital management system). Open source: free, source code available, community maintained. Proprietary: paid, closed source, commercial support.'},
+  ],
+  formulas:['Clock speed: higher GHz = more fetch-decode-execute cycles per second','More cores = more parallel processing (e.g. dual-core can run 2 threads simultaneously)'],
+  tips:'Common exam trap: confusing RAM (temporary, volatile) with secondary storage (permanent). RAM is cleared when powered off. Hard drives/SSDs keep data permanently.',
+  extra:'CPU performance factors: clock speed (GHz) — more cycles/second; number of cores — parallel processing; cache size — more data stored near CPU; word length — wider = more data processed per cycle (e.g. 64-bit vs 32-bit). Exam often asks you to explain how changing ONE factor affects performance.'},
+
+ {icon:'🔒',title:'Security, Privacy & Ethics',desc:'Cyber threats, protection methods, data privacy, intellectual property, ethical issues in computing',
+  kf:[
+   {h:'Malware Types',b:'Virus: attaches to files and programs, needs user action to spread (sharing files). Worm: self-replicates independently across networks — no user action needed, very fast spread. Trojan horse: disguised as legitimate/useful software, user installs it willingly — dangerous because users trust it. Ransomware: encrypts all files, displays ransom demand (Bitcoin payment). Spyware: silently monitors and transmits user data/keystrokes. Adware: displays unwanted ads, may track browsing.'},
+   {h:'Social Engineering',b:'Phishing: fake emails/websites mimicking trusted organisations (bank, HMRC) to steal passwords or card details. Spear phishing: targeted at specific individuals using personal details. Vishing: phone-call version of phishing. Smishing: SMS/text version. Shoulder surfing: physically watching someone enter a PIN or password. Baiting: leaving infected USB drives in public places, hoping curiosity leads someone to plug one in.'},
+   {h:'Security Measures',b:'Firewall: filters traffic in/out based on rules. Anti-malware: detects, quarantines, removes threats — must be kept UPDATED (signature database). Encryption: scrambles data so only authorised parties can read it (AES for symmetric, RSA for asymmetric). 2FA: second verification factor (SMS code, authenticator app, biometric). Strong passwords: 12+ characters, mixed case, numbers, symbols, no dictionary words. Software updates: patch known vulnerabilities.'},
+   {h:'Data Privacy',b:'GDPR key principles: (1) Lawful, fair, transparent. (2) Purpose limitation — only used for stated reason. (3) Data minimisation — only collect what\'s needed. (4) Accuracy — kept up to date. (5) Storage limitation — not kept longer than necessary. (6) Integrity and confidentiality — kept secure. Data subjects have rights: access, rectification, erasure ("right to be forgotten"), portability.'},
+   {h:'Intellectual Property',b:'Copyright: automatic protection for original creative works (software, music, films, books, images). Lasts author\'s lifetime + 70 years. No registration needed. Patent: registered protection for inventions and processes — gives 20-year monopoly. Must apply and be approved. Trademark: protects brand names and logos (®). Open source licence: grants rights to use, modify, and distribute code freely (e.g. GPL, MIT licence).'},
+   {h:'Ethical Issues',b:'AI bias: ML trained on biased data produces biased results (e.g. facial recognition less accurate for darker skin tones). Job displacement: automation replaces routine jobs. Privacy: facial recognition surveillance, mass data collection. Digital divide: unequal access to technology disadvantages some groups. Deepfakes: AI-generated fake media erodes trust. Autonomous weapons: ethical questions about machines making lethal decisions. Environmental impact: data centres use massive amounts of energy.'},
+  ],
+  formulas:['Symmetric encryption: same key encrypts and decrypts (AES) — fast but key must be shared securely','Asymmetric encryption: public key encrypts, private key decrypts (RSA) — solves key exchange problem'],
+  tips:'For "describe a threat" questions use the 3-part structure: (1) NAME the threat, (2) explain HOW it works, (3) state its IMPACT on the organisation. Three marks = three parts.',
+  extra:'Penetration testing (ethical hacking): authorised security experts attempt to break into a system using the same methods as real attackers — to find and fix vulnerabilities before malicious hackers do. Bug bounty programmes: companies pay researchers who responsibly disclose security flaws.'},
+];
+
+/* FORMULAS */
+const FREFS = [
+ {t:'Break-Even Point',f:'BEP = Fixed Costs ÷ Contribution per Unit',n:'Contribution = Selling Price − Variable Cost per unit'},
+ {t:'Contribution per Unit',f:'Contribution = SP − VC',n:'SP = selling price, VC = variable cost per unit'},
+ {t:'Margin of Safety',f:'MoS = Actual Output − Break-Even Output',n:'If MoS is negative, the firm is making a loss'},
+ {t:'Gross Profit',f:'GP = Revenue − Cost of Sales',n:'Cost of Sales = direct materials + direct labour only'},
+ {t:'Gross Profit Margin',f:'GPM (%) = (Gross Profit ÷ Revenue) × 100',n:'Higher % = more efficient production relative to sales'},
+ {t:'Net Profit Margin',f:'NPM (%) = (Net Profit ÷ Revenue) × 100',n:'After ALL expenses including overheads and interest'},
+ {t:'ROCE',f:'ROCE (%) = (Net Profit ÷ Capital Employed) × 100',n:'Capital Employed = Total Assets − Current Liabilities'},
+ {t:'Capacity Utilisation',f:'CU (%) = (Actual Output ÷ Max Capacity) × 100',n:'100% = fully stretched — no buffer for extra orders'},
+ {t:'Labour Turnover',f:'LT (%) = (Workers Leaving ÷ Avg Workforce) × 100',n:'High LT = costly recruitment, training, lost productivity'},
+ {t:'Market Share',f:'MS (%) = (Firm Sales ÷ Total Market) × 100',n:'Used to benchmark relative competitive performance'},
+ {t:'Image File Size',f:'Bits = Width (px) × Height (px) × Colour Depth (bits)',n:'÷8 for bytes · ÷1024 for KB · ÷1024 for MB'},
+ {t:'Sound File Size',f:'Bits = Sample Rate (Hz) × Bit Depth × Duration (s)',n:'Result is in bits — remember to convert to bytes'},
+ {t:'Binary Place Values',f:'128 · 64 · 32 · 16 · 8 · 4 · 2 · 1',n:'e.g. 10110101 = 128+32+16+4+1 = 181'},
+ {t:'Binary Search Steps',f:'Max steps ≈ log₂(n)',n:'e.g. 1024 items → max 10 steps. List must be sorted.'},
+ {t:'Current (Liquidity) Ratio',f:'Current Ratio = Current Assets ÷ Current Liabilities',n:'Ideal ≈ 2:1. Below 1 = cannot pay short-term debts'},
+ {t:'Gearing Ratio',f:'Gearing (%) = (Long-term Liabilities ÷ Capital Employed) × 100',n:'>50% = high gearing, risky if interest rates rise'},
+];
+
+/* PLAN DATA */
+const W1 = [
+ {d:'Day 1 · Mon',t:[{l:'Business Activity & Types — sectors, business types, stakeholders, objectives',s:'b'},{l:'Data Representation — binary & hex conversions, ASCII, image/sound file sizes',s:'c'}]},
+ {d:'Day 2 · Tue',t:[{l:'People & Organisations — Maslow, Herzberg, Taylor, leadership styles, org structure',s:'b'},{l:'Algorithms — pseudocode, flowcharts, trace tables, linear & binary search',s:'c'}]},
+ {d:'Day 3 · Wed',t:[{l:'Marketing — 4Ps, market research methods, PLC, pricing strategies, promotion',s:'b'},{l:'Programming — data types, variables, selection, loops, procedures vs functions',s:'c'}]},
+ {d:'Day 4 · Thu',t:[{l:'Operations Management — JIT, quality control vs assurance, capacity, economies of scale',s:'b'},{l:'Networking — topologies, TCP/IP, DNS, HTTP/HTTPS, cloud computing',s:'c'}]},
+ {d:'Day 5 · Fri',t:[{l:'Finance & Accounting — cash flow, income statement, balance sheet, all ratios',s:'b'},{l:'Hardware & Software — fetch-decode-execute, memory types, storage, OS functions',s:'c'}]},
+ {d:'Day 6 · Sat',t:[{l:'External Influences — business cycle, inflation, interest rates, government policy, CSR',s:'b'},{l:'Security & Ethics — malware types, social engineering, GDPR, IP, AI ethics',s:'c'}]},
+ {d:'Day 7 · Sun',t:[{l:'🔁 Full Business review — create a one-page summary for each topic',s:'b'},{l:'🔁 Full CS review — redo all data conversions and write 3 trace tables from memory',s:'c'}]},
+];
+const W2 = [
+ {d:'Day 8 · Mon',t:[{l:'Business P1 past paper — timed (MCQ + short answer). Mark immediately.',s:'b'},{l:'CS Theory past paper — timed, full paper. Mark immediately.',s:'c'}]},
+ {d:'Day 9 · Tue',t:[{l:'Mark Business paper → identify weak topics → go back and re-study those only',s:'b'},{l:'Mark CS paper → redo every wrong question + write correct explanation',s:'c'}]},
+ {d:'Day 10 · Wed',t:[{l:'Business P2 case study practice — extended response questions (8–12 marks)',s:'b'},{l:'CS programming questions — write pseudocode for 5 different tasks by hand',s:'c'}]},
+ {d:'Day 11 · Thu',t:[{l:'Finance calculations drill — 10 break-even, 10 ratio, 5 cash flow questions',s:'b'},{l:'Algorithms drill — bubble sort 3 lists by hand, binary search 3 lists, 3 trace tables',s:'c'}]},
+ {d:'Day 12 · Fri',t:[{l:'Marketing & Operations MCQ sprint — 30 questions, 25 minutes',s:'b'},{l:'Networking & Security MCQ sprint — 30 questions, 25 minutes',s:'c'}]},
+ {d:'Day 13 · Sat',t:[{l:'Full timed Business mock (2 hours) — entire paper, exam conditions',s:'b'},{l:'Full timed CS mock (2 hours) — entire paper, exam conditions',s:'c'}]},
+ {d:'Day 14 · Sun',t:[{l:'✨ Light review: formulas sheet + key terms only. No new topics. REST well!',s:'b'},{l:'✨ Light review: data conversion shortcuts only. No new topics. REST well!',s:'c'}]},
+];
+
+/* QUIZ BANK */
+const QB = [
+ {s:'biz',q:'A business has fixed costs of $8,000 and a contribution per unit of $40. What is its break-even output?',o:['160 units','200 units','320 units','400 units'],a:1,e:'BEP = Fixed Costs ÷ Contribution per unit = $8,000 ÷ $40 = 200 units.'},
+ {s:'biz',q:'Which motivation theory states that hygiene factors prevent dissatisfaction but do NOT actually motivate workers?',o:["Maslow's Hierarchy","Herzberg's Two-Factor Theory","Taylor's Scientific Management","McGregor's Theory X"],a:1,e:"Herzberg: hygiene factors (pay, working conditions) prevent dissatisfaction. True motivation comes from motivators like achievement, recognition and responsibility — this is why Herzberg recommended job enrichment."},
+ {s:'biz',q:'A firm\'s revenue is $50,000 and its cost of sales is $30,000. What is the gross profit margin?',o:['40%','50%','60%','33%'],a:0,e:'GP = $50,000 − $30,000 = $20,000. GPM = ($20,000 ÷ $50,000) × 100 = 40%.'},
+ {s:'biz',q:'Just-in-Time (JIT) production primarily requires which of the following?',o:['Large buffer stocks to prevent shortages','Highly reliable suppliers delivering on time','High capacity utilisation at all times','Batch production methods'],a:1,e:'JIT means materials arrive exactly when needed — so suppliers MUST be extremely reliable. If a delivery is even slightly late, the production line stops completely.'},
+ {s:'biz',q:'Which leadership style would be MOST appropriate when dealing with a fire alarm emergency?',o:['Democratic — consult the team first','Laissez-faire — let staff decide','Autocratic — give clear instructions','Paternalistic — explain and then decide'],a:2,e:'Autocratic is best in emergencies requiring instant decisions. There is no time for consultation. The leader must give clear, fast instructions that everyone follows immediately.'},
+ {s:'biz',q:'Penetration pricing involves which of the following?',o:['Charging a very high initial price to skim early adopters','Setting a price well below cost permanently','Setting a low initial price to quickly build market share','Exactly matching the price of the market leader'],a:2,e:'Penetration pricing: low launch price attracts customers and builds market share fast. Once established, the firm raises prices gradually. Risk: customers may leave when prices rise.'},
+ {s:'biz',q:'A business has actual output of 800 units and maximum capacity of 1,000 units. What is capacity utilisation?',o:['75%','80%','85%','125%'],a:1,e:'CU = (Actual Output ÷ Max Capacity) × 100 = (800 ÷ 1,000) × 100 = 80%.'},
+ {s:'biz',q:'Which of the following is an INTERNAL source of finance?',o:['Bank loan','Debenture bonds','Retained profit','Government grant'],a:2,e:'Retained profit is generated from within the business (profit kept after paying tax and dividends). All other options involve external parties providing funds.'},
+ {s:'biz',q:'ROCE measures:',o:['How much gross profit is made per $1 of sales','How efficiently a firm uses its invested capital to generate profit','How quickly a firm can pay its short-term debts','The proportion of profit paid to shareholders'],a:1,e:'ROCE (%) = (Net Profit ÷ Capital Employed) × 100. It shows how many cents of profit are earned for every dollar of capital invested. Higher = better use of capital.'},
+ {s:'biz',q:'Primary market research collects data that is:',o:['Already published by a government agency','Available for free on the internet','New, original data collected for a specific purpose','Gathered from competitors\' annual reports'],a:2,e:'Primary = original data collected first-hand (surveys, focus groups, interviews, observations). Secondary = existing data collected by someone else (reports, internet, gov statistics). Primary is more specific but more expensive and time-consuming.'},
+ {s:'cs',q:'What is the decimal value of the binary number 10110101?',o:['163','175','181','189'],a:2,e:'Place values: 128+0+32+16+0+4+0+1 = 181. Always write out: 128·64·32·16·8·4·2·1 then tick each position with a 1.'},
+ {s:'cs',q:'Binary search can ONLY be used when:',o:['The list has fewer than 100 items','The list is already sorted in order','The list contains only numbers','The list is stored as a 1D array'],a:1,e:'Binary search works by halving the search space — this only works correctly if the list is already sorted in ascending or descending order. Use linear search for unsorted lists.'},
+ {s:'cs',q:'Which loop structure is GUARANTEED to execute its body at least once?',o:['FOR loop','WHILE…DO loop','REPEAT…UNTIL loop','All loops always execute at least once'],a:2,e:'REPEAT…UNTIL checks the condition AFTER the body executes. So the body always runs at least once. WHILE checks the condition BEFORE — if false from the start, the body never runs.'},
+ {s:'cs',q:'A FUNCTION differs from a PROCEDURE because a function:',o:['Always uses parameters','Can be called from another program','Returns a value to the calling code using RETURN','Must contain a loop'],a:2,e:'Functions return a value to the code that called them using RETURN. Procedures perform actions but return nothing. Both can use parameters and loops. Use functions when you need a result back.'},
+ {s:'cs',q:'In a star network topology, what is the consequence if the central switch fails?',o:['Only the two nearest devices lose connection','The whole network stops working for all connected devices','Data is automatically rerouted via another path','Network speed is reduced by 50% but it keeps working'],a:1,e:'Star topology: ALL devices connect to ONE central switch. If the switch fails, no device can communicate with any other — it\'s a single point of failure. This is the main disadvantage of star topology.'},
+ {s:'cs',q:'Which type of malware disguises itself as legitimate, useful software to trick users into installing it?',o:['Virus','Worm','Trojan horse','Ransomware'],a:2,e:'A Trojan horse appears to be useful software (free game, useful app). Unlike a virus, it does NOT self-replicate. Users are tricked into installing it — the malicious code then runs with the user\'s permissions.'},
+ {s:'cs',q:'What is the role of the CPU\'s Arithmetic Logic Unit (ALU)?',o:['Coordinates all CPU operations and manages the fetch-decode-execute cycle','Stores frequently used instructions between RAM and CPU','Performs arithmetic calculations and logical/comparison operations','Holds the address of the next instruction to be fetched'],a:2,e:'ALU performs: arithmetic (+−×÷), logical (AND/OR/NOT/XOR), and comparison operations (>, <, =, >=). Results are typically stored in the Accumulator (ACC) register.'},
+ {s:'cs',q:'Lossless compression differs from lossy compression because:',o:['Lossless always creates a smaller file than lossy','Lossy allows perfect reconstruction of the original file','Lossless allows perfect reconstruction of the original file without any data loss','Lossless can only be used for image files'],a:2,e:'Lossless: no data is lost — original perfectly restored (e.g. ZIP, PNG, FLAC). Used where accuracy matters (text files, spreadsheets). Lossy: permanently removes data for smaller files (e.g. JPEG, MP3) — cannot recover removed data.'},
+ {s:'cs',q:'A 24-bit colour image is 800 × 600 pixels. What is its uncompressed file size in bytes?',o:['480,000 bytes','1,440,000 bytes','3,840,000 bytes','11,520,000 bytes'],a:1,e:'File size in bits = 800 × 600 × 24 = 11,520,000 bits. Divide by 8 to get bytes: 11,520,000 ÷ 8 = 1,440,000 bytes (= 1.44 MB).'},
+ {s:'cs',q:'DNS (Domain Name System) converts:',o:['IP addresses into domain names only','Domain names into IP addresses','Usernames into passwords for login','HTTP requests into HTTPS encrypted requests'],a:1,e:'DNS is like the internet\'s phone book. It translates human-readable domain names (e.g. www.cambridge.org) into the numerical IP addresses that computers need to route data to the correct server.'},
+];
+
+/* CHECKLIST */
+const CHKS = {
+ 'Business Studies':{bar:'b',items:[
+  'Business Activity & Types — fully revised, examples ready',
+  'People & Organisations — all 3 motivation theories explained',
+  'Marketing — 4Ps and all pricing strategies with examples',
+  'Operations Management — JIT, capacity formula practised',
+  'Finance — all 8 formulas memorised and practised',
+  'External Influences — SPICED and business cycle explained',
+  'Past paper: Business P1 completed and marked',
+  'Past paper: Business P2 (case study) completed and marked',
+  'Finance calculations drill — 20+ questions done',
+  'Full Business mock paper completed under timed conditions',
+ ]},
+ 'Computer Science':{bar:'c',items:[
+  'Data Representation — binary/hex conversions done 10× each',
+  'Algorithms — trace tables for loops, search and sort',
+  'Programming — pseudocode for 5 different programs written',
+  'Networking — topologies drawn + protocols table memorised',
+  'Hardware — fetch-decode-execute cycle explained from memory',
+  'Security & Ethics — all threat types + defences listed',
+  'Past paper: CS theory paper completed and marked',
+  'Past paper: CS algorithm/programming questions done',
+  'Written correct pseudocode for 5 tasks by hand',
+  'Full CS mock paper completed under timed conditions',
+ ]},
+ 'Exam Prep':{bar:'a',items:[
+  'Stationery ready (pens × 2, pencils, ruler, rubber, calculator)',
+  'Exam timetable confirmed — know exact dates, times, rooms',
+  'All 16 formulas on one revision card — tested from memory',
+  'Good sleep the night before each exam 😴',
+  'Healthy breakfast on exam morning 🍳',
+ ]},
+};
+
+/* ══════════════════════════════════════
+   BUILD FUNCTIONS
+══════════════════════════════════════ */
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function buildPlan(){renderDays('grid1',W1,'w1');renderDays('grid2',W2,'w2')}
+function renderDays(gid,data,pfx){
+  const g=document.getElementById(gid);
+  data.forEach((d,i)=>{
+    const k=`${pfx}_${i}`;
+    const done=ls(k)==='1';
+    const el=document.createElement('div');
+    el.className='day-card'+(done?' done':'');el.id='dc_'+k;
+    el.innerHTML=`<div class="day-lbl">${d.d}</div>
+    <ul class="day-tasks">${d.t.map(t=>`<li>
+      <input type="checkbox" class="dchk" onchange="tDay('${k}',this)" ${done?'checked':''}>
+      <span class="stag ${t.s}">${t.s==='b'?'BIZ':'CS'}</span>${t.l}
+    </li>`).join('')}</ul>`;
+    g.appendChild(el);
+  });
+}
+function tDay(k,cb){
+  sls(k,cb.checked?'1':'0');
+  const c=document.getElementById('dc_'+k);
+  c.classList.toggle('done',Array.from(c.querySelectorAll('.dchk')).every(b=>b.checked));
+  updProg();
+}
+
+function buildTopics(gid,data,cls){
+  const g=document.getElementById(gid);
+  data.forEach(t=>{
+    const el=document.createElement('div');el.className=`tc ${cls}`;
+    el.innerHTML=`<div class="tc-banner">
+      <span class="tc-toggle">＋</span>
+      <span class="tc-icon">${t.icon}</span>
+      <div class="tc-title">${t.title}</div>
+      <div class="tc-desc">${t.desc}</div>
+    </div>
+    <div class="tc-body">
+      <div class="sub-lbl">Key Concepts</div>
+      <div class="kf-grid">${t.kf.map(k=>`<div class="kf ${cls}-kf"><strong>${k.h}</strong>${k.b}</div>`).join('')}</div>
+      ${t.formulas&&t.formulas.length?`<div class="sub-lbl">Formulas & Rules</div>${t.formulas.map(f=>`<div class="formula-box">${f}</div>`).join('')}`:''}
+      ${t.extra?`<div class="example-box">${t.extra}</div>`:''}
+      <div class="exam-tip">${t.tips}</div>
+    </div>`;
+    el.addEventListener('click',()=>{
+      el.classList.toggle('open');
+      el.querySelector('.tc-toggle').textContent=el.classList.contains('open')?'－':'＋';
+    });
+    g.appendChild(el);
+  });
+}
+
+function buildFormulas(){
+  const g=document.getElementById('frefGrid');
+  FREFS.forEach(f=>{
+    const el=document.createElement('div');el.className='fref';
+    el.innerHTML=`<div class="fref-title">${f.t}</div><div class="fref-formula">${f.f}</div><div class="fref-note">${f.n}</div>`;
+    g.appendChild(el);
+  });
+}
+
+let qData=[],qScore=0,qAns=0,qBest=parseInt(ls('qbest')||'0');
+function startQuiz(){
+  const f=document.getElementById('qfilt').value;
+  const pool=f==='all'?QB:QB.filter(q=>q.s===f);
+  qData=shuffle(pool).slice(0,Math.min(10,pool.length));
+  qScore=0;qAns=0;
+  document.getElementById('scoreStrip').style.display='flex';
+  document.getElementById('scoreNum').textContent=`0/${qData.length}`;
+  const area=document.getElementById('quizArea');area.innerHTML='';
+  qData.forEach((q,i)=>{
+    const d=document.createElement('div');d.className='qcard';d.id='qc'+i;
+    const badge=q.s==='biz'?`<span style="color:var(--biz);font-weight:700">📊 Business</span>`:`<span style="color:var(--cs);font-weight:700">💻 CS</span>`;
+    d.innerHTML=`<div class="qn">Question ${i+1} · ${badge}</div>
+    <div class="qt">${q.q}</div>
+    <ul class="opts">${q.o.map((o,j)=>`<li><button onclick="ans(${i},${j})">${o}</button></li>`).join('')}</ul>
+    <div class="qexp" id="qe${i}">💡 ${q.e}</div>`;
+    area.appendChild(d);
+  });
+}
+function ans(qi,ci){
+  const q=qData[qi];const card=document.getElementById('qc'+qi);
+  const btns=card.querySelectorAll('.opts button');
+  btns.forEach(b=>b.disabled=true);
+  btns[ci].classList.add(ci===q.a?'ok':'no');
+  if(ci!==q.a)btns[q.a].classList.add('ok');
+  document.getElementById('qe'+qi).classList.add('show');
+  if(ci===q.a)qScore++;
+  qAns++;
+  document.getElementById('scoreNum').textContent=`${qScore}/${qAns}`;
+  if(qScore>qBest){qBest=qScore;sls('qbest',qBest);document.getElementById('quizBest').textContent=qBest;}
+}
+function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
+
+function buildChecklists(){
+  const g=document.getElementById('chkGrid');
+  Object.entries(CHKS).forEach(([sec,d])=>{
+    const bl=document.createElement('div');bl.className='chk-block';
+    bl.innerHTML=`<h3><div class="cbar ${d.bar}"></div>${sec}</h3>
+    ${d.items.map((it,i)=>{const k=`ck_${sec}_${i}`;const ch=ls(k)==='1';
+    return`<div class="ci"><input type="checkbox" id="${k}" ${ch?'checked':''} onchange="sChk('${k}')"><label for="${k}">${it}</label></div>`;
+    }).join('')}`;
+    g.appendChild(bl);
+  });
+}
+function sChk(k){sls(k,document.getElementById(k).checked?'1':'0');updProg();}
+
+function updProg(){
+  let tot=0,done=0;
+  ['w1','w2'].forEach(p=>{for(let i=0;i<7;i++){tot++;if(ls(`${p}_${i}`)==='1')done++;}});
+  Object.entries(CHKS).forEach(([s,d])=>d.items.forEach((_,i)=>{tot++;if(ls(`ck_${s}_${i}`)==='1')done++;}));
+  const pct=Math.round(done/tot*100);
+  document.getElementById('pctTxt').textContent=pct+'%';
+  document.getElementById('pctFill').style.width=pct+'%';
+  document.getElementById('donePct').textContent=pct+'%';
+}
+
+function ls(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function sls(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  buildPlan();buildTopics('bizGrid',BIZ,'b');buildTopics('csGrid',CS,'c');
+  buildFormulas();buildChecklists();updProg();
+  const b=ls('qbest');if(b)document.getElementById('quizBest').textContent=b;
+});
+</script>
+</body>
+</html>
